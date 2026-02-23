@@ -46,6 +46,49 @@ services:
     networks:
       - signal-broker-network
 
+  init-kafka:
+    image: apache/kafka:latest
+    depends_on:
+      kafka:
+        condition: service_healthy
+    entrypoint: ['/bin/sh', '-c']
+    command: |
+      "
+      echo 'Création des topics Kafka...'
+      
+      /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists --topic MailMessage --partitions 1 --replication-factor 1
+      
+      /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists --topic WhatsappMessage --partitions 1 --replication-factor 1
+      
+      /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists --topic TicketFormatted --partitions 1 --replication-factor 1
+      
+      /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists --topic TicketLabellisé --partitions 1 --replication-factor 1
+      
+      /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists --topic WhatsappFormattedDLQ --partitions 1 --replication-factor 1
+      
+      /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists --topic MailFormattedDLQ --partitions 1 --replication-factor 1
+      
+      /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists --topic TicketLabelliséDLQ --partitions 1 --replication-factor 1
+      
+      echo 'Topics créés:'
+      /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --list
+      "
+    networks:
+      - signal-broker-network
+
+  sender:
+    build:
+      context: ./sender
+      dockerfile: Dockerfile
+    container_name: sender
+    depends_on:
+      init-kafka:
+        condition: service_completed_successfully
+    environment:
+      KAFKA_BOOTSTRAP_SERVER: kafka:9092
+    networks:
+      - signal-broker-network
+
   frontend:
     build:
       context: ./frontend
