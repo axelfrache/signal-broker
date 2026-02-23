@@ -3,10 +3,15 @@
 
 import json
 import time
+import os
+from dotenv import load_dotenv
 from kafka import KafkaProducer
 from kafka.errors import KafkaError
 
-KAFKA_BOOTSTRAP_SERVERS = ['localhost:9092'] # a changer quand on aura
+load_dotenv()
+
+KAFKA_BOOTSTRAP_SERVER = os.getenv('KAFKA_BOOTSTRAP_SERVER')
+KAFKA_BOOTSTRAP_SERVERS = [KAFKA_BOOTSTRAP_SERVER]
 MAIL_TOPIC = 'MailMessage'
 WHATSAPP_TOPIC = 'WhatsappMessage'
 
