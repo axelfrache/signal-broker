@@ -34,6 +34,8 @@ Signal Broker est un système de gestion de tickets pour équipes de support tec
 - **Intégrations** : Discord API
 - **Containerisation** : Docker & Docker Compose
 
+![alt text](infrastructure-lesson1.png)
+
 ### Structure du Projet
 
 ```
@@ -88,7 +90,3 @@ npm run dev
 ## Licence
 
 Projet académique - Cours Streaming Lake
-
-## Infrastructure
-
-![alt text](infrastructure-lesson1.png)
