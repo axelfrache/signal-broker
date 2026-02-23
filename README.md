@@ -55,7 +55,7 @@ signal-broker/
 
 1. Cloner le repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/axelfrache/signal-broker.git
 cd signal-broker
 ```
 
@@ -65,7 +65,7 @@ docker-compose up -d
 ```
 
 3. Accéder à l'application
-- Frontend : http://localhost:5173
+- Frontend : http://localhost:80
 - Backend : http://localhost:8080
 
 ## Développement
@@ -84,16 +84,6 @@ cd frontend
 npm install
 npm run dev
 ```
-
-## Services
-
-| Service | Port | Description |
-|---------|------|-------------|
-| Frontend | 5173 | Interface utilisateur React |
-| Backend | 8080 | API REST Spring Boot |
-| Kafka | 9092 | Message broker |
-| PostgreSQL | 5432 | Base de données |
-| Garage | 3900 | Stockage objet S3-compatible |
 
 ## Licence
 
