@@ -55,6 +55,8 @@ services:
       - "80:80"
     depends_on:
       - backend
+    networks:
+      - signal-broker-network
 
   backend:
     build:
@@ -63,9 +65,17 @@ services:
     container_name: backend
     ports:
       - "8080:8080"
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     networks:
       - signal-broker-network
 
+networks:
+  signal-broker-network:
+    driver: bridge
 
 volumes:
   kafka-data:
