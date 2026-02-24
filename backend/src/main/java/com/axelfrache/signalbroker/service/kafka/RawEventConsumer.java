@@ -27,7 +27,7 @@ public class RawEventConsumer {
     public void onWhatsappRaw(@lombok.NonNull RawInboundEvent raw, @lombok.NonNull Acknowledgment ack) {
         try {
             var formatted = formattingService.format(raw);
-            eventPublisher.publishWhatsappFormatted(formatted);
+            eventPublisher.publishFormatted(formatted);
         } catch (Exception e) {
             alertingService.formattingFailed(raw, e);
             eventPublisher.publishWhatsappFormatDlq(buildDlqEvent(raw, "support.whatsapp.raw", e));
@@ -40,7 +40,7 @@ public class RawEventConsumer {
     public void onMailRaw(@lombok.NonNull RawInboundEvent raw, @lombok.NonNull Acknowledgment ack) {
         try {
             var formatted = formattingService.format(raw);
-            eventPublisher.publishMailFormatted(formatted);
+            eventPublisher.publishFormatted(formatted);
         } catch (Exception e) {
             alertingService.formattingFailed(raw, e);
             eventPublisher.publishMailFormatDlq(buildDlqEvent(raw, "support.mail.raw", e));

@@ -22,11 +22,8 @@ public class KafkaEventPublisher implements EventPublisher {
     @Value("${kafka.topics.mail.raw}")
     private String mailRawTopic;
 
-    @Value("${kafka.topics.whatsapp.formatted}")
-    private String whatsappFormattedTopic;
-
-    @Value("${kafka.topics.mail.formatted}")
-    private String mailFormattedTopic;
+    @Value("${kafka.topics.formatted}")
+    private String formattedTopic;
 
     @Value("${kafka.topics.labeled}")
     private String labeledTopic;
@@ -53,13 +50,8 @@ public class KafkaEventPublisher implements EventPublisher {
     }
 
     @Override
-    public void publishWhatsappFormatted(@lombok.NonNull FormattedTicketEvent event) {
-        kafkaTemplate.send(whatsappFormattedTopic, event.ticketId().toString(), event);
-    }
-
-    @Override
-    public void publishMailFormatted(@lombok.NonNull FormattedTicketEvent event) {
-        kafkaTemplate.send(mailFormattedTopic, event.ticketId().toString(), event);
+    public void publishFormatted(@lombok.NonNull FormattedTicketEvent event) {
+        kafkaTemplate.send(formattedTopic, event.ticketId().toString(), event);
     }
 
     @Override

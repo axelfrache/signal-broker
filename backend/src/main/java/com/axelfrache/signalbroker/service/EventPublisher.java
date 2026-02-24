@@ -10,9 +10,7 @@ public interface EventPublisher {
 
     void publishMailRaw(RawInboundEvent event);
 
-    void publishWhatsappFormatted(FormattedTicketEvent event);
-
-    void publishMailFormatted(FormattedTicketEvent event);
+    void publishFormatted(FormattedTicketEvent event);
 
     void publishLabeled(LabeledTicketEvent event);
 

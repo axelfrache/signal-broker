@@ -23,8 +23,7 @@ public class FormattedEventConsumer {
     private final EventPublisher eventPublisher;
     private final AlertingService alertingService;
 
-    @KafkaListener(topics = { "${kafka.topics.whatsapp.formatted}",
-            "${kafka.topics.mail.formatted}" }, groupId = "${kafka.groups.labeler}", containerFactory = "formattedKafkaListenerContainerFactory")
+    @KafkaListener(topics = "${kafka.topics.formatted}", groupId = "${kafka.groups.labeler}", containerFactory = "formattedKafkaListenerContainerFactory")
     public void onFormatted(@lombok.NonNull FormattedTicketEvent formatted, @lombok.NonNull Acknowledgment ack) {
         try {
             var labeled = labelingService.label(formatted);
