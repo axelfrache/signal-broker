@@ -56,7 +56,8 @@ public class KafkaEventPublisher implements EventPublisher {
 
     @Override
     public void publishLabeled(@lombok.NonNull LabeledTicketEvent event) {
-        kafkaTemplate.send(labeledTopic, event.ticketId().toString(), event);
+        var connectPayload = com.axelfrache.signalbroker.model.kafka.connect.ConnectEventMapper.toConnectPayload(event);
+        kafkaTemplate.send(labeledTopic, event.ticketId().toString(), connectPayload);
     }
 
     @Override
