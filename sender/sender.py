@@ -31,6 +31,8 @@ def create_producer():
 
 
 def to_raw_event(source_type, source_msg_id, contact, body, original_date, metadata=None):
+    if not original_date.endswith("Z") and "+" not in original_date:
+        original_date = original_date + "Z"
     return {
         "eventId": str(uuid.uuid4()),
         "channelType": source_type,
