@@ -55,8 +55,8 @@ services:
         condition: service_healthy
     environment:
       KAFKA_BOOTSTRAP_SERVER: kafka:9092
-      KAFKA_MAIL_TOPIC: support.mail.raw
-      KAFKA_WHATSAPP_TOPIC: support.whatsapp.raw
+      KAFKA_MAIL_TOPIC: "${KAFKA_MAIL_TOPIC}"
+      KAFKA_WHATSAPP_TOPIC: "${KAFKA_WHATSAPP_TOPIC}"
     networks:
       - signal-broker-network
     profiles:
