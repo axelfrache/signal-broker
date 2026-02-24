@@ -25,7 +25,7 @@ services:
     networks:
       - signal-broker-network
     healthcheck:
-      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:9092 || exit 1"]
+      test: [ "CMD-SHELL", "/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:9092 || exit 1" ]
       interval: 10s
       timeout: 10s
       retries: 5
@@ -70,6 +70,9 @@ services:
         condition: service_healthy
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SIMULATOR_ENABLED: "true"
+      OLLAMA_BASE_URL: "${OLLAMA_BASE_URL}"
+      OLLAMA_MODEL_CLASSIFIER: "${OLLAMA_MODEL_CLASSIFIER}"
     networks:
       - signal-broker-network
 
