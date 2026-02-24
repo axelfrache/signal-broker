@@ -21,27 +21,14 @@ public class DefaultFormattingService implements FormattingService {
             throw new FormattingException("Contact cannot be empty");
         }
 
-        var subject = extractSubject(raw.body());
         var normalizedBody = raw.body().trim().replaceAll("\\s+", " ");
 
         return new FormattedTicketEvent(
                 UUID.randomUUID(),
-                raw.eventId(),
-                UUID.randomUUID(),
                 raw.channelType(),
                 Instant.now(),
-                subject,
                 normalizedBody,
                 raw.contact(),
                 1);
-    }
-
-    private String extractSubject(String body) {
-        var lines = body.split("\n");
-        var firstLine = lines[0].trim();
-        if (firstLine.isEmpty()) {
-            return "Support request";
-        }
-        return firstLine.length() > 80 ? firstLine.substring(0, 80) : firstLine;
     }
 }

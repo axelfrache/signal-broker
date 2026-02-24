@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -35,9 +34,9 @@ public class DefaultLabelingService implements LabelingService {
             }
 
             return new LabeledTicketEvent(
-                    UUID.randomUUID(),
                     formatted.ticketId(),
                     Instant.now(),
+                    result.subject(),
                     result.category(),
                     result.ticketType(),
                     result.priority(),

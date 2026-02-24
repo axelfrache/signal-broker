@@ -37,9 +37,7 @@ class DefaultFormattingServiceTest {
 
         assertNotNull(formatted);
         assertNotNull(formatted.ticketId());
-        assertEquals(raw.eventId(), formatted.rawEventId());
         assertEquals(ChannelType.MAIL, formatted.channel());
-        assertEquals("Hello world", formatted.subject());
         assertEquals("Hello world This is a test message.", formatted.body());
         assertEquals("test@example.com", formatted.contact());
         assertEquals(1, formatted.schemaVersion());
@@ -62,21 +60,19 @@ class DefaultFormattingServiceTest {
     }
 
     @Test
-    void testLongSubjectIsTruncated() {
-        var longLine = "This is a very long text that exceeds eighty characters so it should be truncated properly when the formatting service processes it.";
+    void testBodyIsNormalized() {
         var raw = new RawInboundEvent(
                 UUID.randomUUID(),
                 ChannelType.MAIL,
                 "msg-789",
                 Instant.now(),
                 "test2@test.com",
-                longLine + "\nAnd some more text below.",
+                "Line one\n\n   Line two   \n\nLine three",
                 Map.of(),
                 1);
 
         var formatted = formattingService.format(raw);
 
-        assertTrue(formatted.subject().length() <= 80);
-        assertTrue(longLine.startsWith(formatted.subject()));
+        assertEquals("Line one Line two Line three", formatted.body());
     }
 }

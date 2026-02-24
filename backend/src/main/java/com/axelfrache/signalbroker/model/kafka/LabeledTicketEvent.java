@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.UUID;
 
 public record LabeledTicketEvent(
-                UUID eventId,
                 UUID ticketId,
                 Instant labeledAt,
+                String subject,
                 Category category,
                 TicketType ticketType,
                 Priority priority,
