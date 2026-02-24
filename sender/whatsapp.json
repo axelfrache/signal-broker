@@ -2,160 +2,101 @@
   {
     "date": "2026-02-22T14:32:18.453621",
     "telephone": 677845923,
-    "message": "Bonjour, j'ai une erreur 404 sur l'URL https://app.example.com/dashboard quand j'essaie d'accéder au tableau de bord. Vous pouvez jeter un œil svp ? Je vous envoie une capture.",
-    "media": {
-      "type": "image",
-      "url": "https://picsum.photos/800/600"
-    }
+    "message": "Bonjour, j'ai une erreur 404 sur l'URL https://app.example.com/dashboard quand j'essaie d'accéder au tableau de bord. Vous pouvez jeter un œil svp ? Je vous envoie une capture."
   },
   {
     "date": "2026-02-21T09:15:42.123456",
     "telephone": 612345678,
-    "message": "Salut, le bouton 'Valider' ne s'affiche pas correctement chez moi, on dirait qu'il est coupé. C'est normal ?",
-    "media": null
+    "message": "Salut, le bouton 'Valider' ne s'affiche pas correctement chez moi, on dirait qu'il est coupé. C'est normal ?"
   },
   {
     "date": "2026-02-20T16:48:33.789012",
     "telephone": 765432109,
-    "message": "URGENT !!! La prod a explosé ! Erreur 500 partout, tous les clients nous appellent. Je vous envoie une vidéo de ce qui se passe",
-    "media": {
-      "type": "video",
-      "url": "https://example.com/videos/screen-recording.mp4"
-    }
+    "message": "URGENT !!! La prod a explosé ! Erreur 500 partout, tous les clients nous appellent. Je vous envoie une vidéo de ce qui se passe"
   },
   {
     "date": "2026-02-19T11:22:05.345678",
     "telephone": 623456789,
-    "message": "Hello, impossible de se connecter à la base de données depuis ce matin. Y'a une maintenance en cours ou c'est un bug ?",
-    "media": null
+    "message": "Hello, impossible de se connecter à la base de données depuis ce matin. Y'a une maintenance en cours ou c'est un bug ?"
   },
   {
     "date": "2026-02-18T08:45:17.901234",
     "telephone": 698765432,
-    "message": "Bonjour, le formulaire de contact ne fonctionne pas. Quand on clique sur envoyer, rien ne se passe. Screenshot ci-joint",
-    "media": {
-      "type": "image",
-      "url": "https://picsum.photos/800/600"
-    }
+    "message": "Bonjour, le formulaire de contact ne fonctionne pas. Quand on clique sur envoyer, rien ne se passe. Screenshot ci-joint"
   },
   {
     "date": "2026-02-17T13:30:28.567890",
     "telephone": 634567890,
-    "message": "Salut, j'ai un bug sur la page d'accueil, ça charge pas du tout. J'ai essayé de vider le cache mais rien. Je vous mets une photo + vidéo pour que vous voyiez",
-    "media": {
-      "type": "both",
-      "image": "https://picsum.photos/800/600",
-      "video": "https://example.com/videos/bug-demo.mp4"
-    }
+    "message": "Salut, j'ai un bug sur la page d'accueil, ça charge pas du tout. J'ai essayé de vider le cache mais rien. Je vous mets une photo + vidéo pour que vous voyiez"
   },
   {
     "date": "2026-02-16T10:18:52.234567",
     "telephone": 787654321,
-    "message": "Bonjour, j'ai une erreur 500 quand je clique sur le bouton Envoyer dans le formulaire. C'est bloquant pour moi...",
-    "media": null
+    "message": "Bonjour, j'ai une erreur 500 quand je clique sur le bouton Envoyer dans le formulaire. C'est bloquant pour moi..."
   },
   {
     "date": "2026-02-15T15:42:11.890123",
     "telephone": 645678901,
-    "message": "Hello, les images ne se chargent pas sur la galerie, je vois que des carrés gris. Voici une capture",
-    "media": {
-      "type": "image",
-      "url": "https://picsum.photos/800/600"
-    }
+    "message": "Hello, les images ne se chargent pas sur la galerie, je vois que des carrés gris. Voici une capture"
   },
   {
     "date": "2026-02-14T12:55:39.456789",
     "telephone": 676543210,
-    "message": "Le site est super lent depuis ce matin, ça met genre 1 minute à charger chaque page. C'est normal ?",
-    "media": null
+    "message": "Le site est super lent depuis ce matin, ça met genre 1 minute à charger chaque page. C'est normal ?"
   },
   {
     "date": "2026-02-13T09:08:24.012345",
     "telephone": 656789012,
-    "message": "Bonjour, j'arrive pas à télécharger le rapport PDF. Erreur à chaque fois. Je vous fais une vidéo du problème",
-    "media": {
-      "type": "video",
-      "url": "https://example.com/videos/screen-recording.mp4"
-    }
+    "message": "Bonjour, j'arrive pas à télécharger le rapport PDF. Erreur à chaque fois. Je vous fais une vidéo du problème"
   },
   {
     "date": "2026-02-12T17:25:47.678901",
     "telephone": 765432198,
-    "message": "Salut, le paiement ne passe pas, j'ai l'erreur CARD_DECLINED alors que ma carte fonctionne partout ailleurs. Capture d'écran jointe",
-    "media": {
-      "type": "image",
-      "url": "https://picsum.photos/800/600"
-    }
+    "message": "Salut, le paiement ne passe pas, j'ai l'erreur CARD_DECLINED alors que ma carte fonctionne partout ailleurs. Capture d'écran jointe"
   },
   {
     "date": "2026-02-11T14:37:16.234567",
     "telephone": 667890123,
-    "message": "URGENT - Mon compte est bloqué sans raison ! J'ai besoin d'accéder à mes données tout de suite. Aidez-moi svp",
-    "media": null
+    "message": "URGENT - Mon compte est bloqué sans raison ! J'ai besoin d'accéder à mes données tout de suite. Aidez-moi svp"
   },
   {
     "date": "2026-02-10T11:12:58.890123",
     "telephone": 754321987,
-    "message": "Bonjour, les notifications ne marchent plus depuis quelques jours. J'ai vérifié mes paramètres, tout est ok de mon côté",
-    "media": null
+    "message": "Bonjour, les notifications ne marchent plus depuis quelques jours. J'ai vérifié mes paramètres, tout est ok de mon côté"
   },
   {
     "date": "2026-02-09T08:44:33.456789",
     "telephone": 678901234,
-    "message": "Hello, le dashboard affiche n'importe quoi, les chiffres sont complètement faux. Regardez les captures + vidéo que je vous envoie",
-    "media": {
-      "type": "both",
-      "image": "https://picsum.photos/800/600",
-      "video": "https://example.com/videos/bug-demo.mp4"
-    }
+    "message": "Hello, le dashboard affiche n'importe quoi, les chiffres sont complètement faux. Regardez les captures + vidéo que je vous envoie"
   },
   {
     "date": "2026-02-08T16:28:05.012345",
     "telephone": 743219876,
-    "message": "Bonjour, erreur de validation sur le champ email. Il me dit que mon email est invalide alors qu'il est bon. Screenshot ci-joint",
-    "media": {
-      "type": "image",
-      "url": "https://picsum.photos/800/600"
-    }
+    "message": "Bonjour, erreur de validation sur le champ email. Il me dit que mon email est invalide alors qu'il est bon. Screenshot ci-joint"
   },
   {
     "date": "2026-02-07T13:51:42.678901",
     "telephone": 689012345,
-    "message": "Salut, la recherche ne renvoie aucun résultat même pour des trucs que je sais qui existent. Bug ?",
-    "media": null
+    "message": "Salut, la recherche ne renvoie aucun résultat même pour des trucs que je sais qui existent. Bug ?"
   },
   {
     "date": "2026-02-06T10:05:27.234567",
     "telephone": 732198765,
-    "message": "Gros problème d'affichage sur mobile, tout est cassé. Je vous fais une vidéo pour montrer",
-    "media": {
-      "type": "video",
-      "url": "https://example.com/videos/screen-recording.mp4"
-    }
+    "message": "Gros problème d'affichage sur mobile, tout est cassé. Je vous fais une vidéo pour montrer"
   },
   {
     "date": "2026-02-05T15:33:14.890123",
     "telephone": 690123456,
-    "message": "Bonjour, le bouton submit reste grisé, je peux pas valider le formulaire même en remplissant tous les champs",
-    "media": null
+    "message": "Bonjour, le bouton submit reste grisé, je peux pas valider le formulaire même en remplissant tous les champs"
   },
   {
     "date": "2026-02-04T12:17:48.456789",
     "telephone": 721987654,
-    "message": "HELP ! Mes données ont toutes disparu après la mise à jour d'hier soir !! C'est très grave, j'ai perdu tout mon travail. Screenshot joint",
-    "media": {
-      "type": "image",
-      "url": "https://picsum.photos/800/600"
-    }
+    "message": "HELP ! Mes données ont toutes disparu après la mise à jour d'hier soir !! C'est très grave, j'ai perdu tout mon travail. Screenshot joint"
   },
   {
     "date": "2026-02-03T09:49:22.012345",
     "telephone": 601234567,
-    "message": "Bonjour, l'app crash systématiquement quand j'ouvre la section statistiques. J'ai réinstallé mais pareil. Photo + vidéo du problème",
-    "media": {
-      "type": "both",
-      "image": "https://picsum.photos/800/600",
-      "video": "https://example.com/videos/bug-demo.mp4"
-    }
+    "message": "Bonjour, l'app crash systématiquement quand j'ouvre la section statistiques. J'ai réinstallé mais pareil. Photo + vidéo du problème"
   }
 ]
