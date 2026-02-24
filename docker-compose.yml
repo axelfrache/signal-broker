@@ -6,7 +6,6 @@ services:
       - "9092:9092"
       - "9093:9093"
     environment:
-      # KRaft mode configuration (sans Zookeeper)
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9094,PLAINTEXT_HOST://0.0.0.0:9093
@@ -25,7 +24,7 @@ services:
     networks:
       - signal-broker-network
     healthcheck:
-      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:9092 || exit 1"]
+      test: [ "CMD-SHELL", "/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:9092 || exit 1" ]
       interval: 10s
       timeout: 10s
       retries: 5
@@ -46,6 +45,23 @@ services:
     networks:
       - signal-broker-network
 
+  sender:
+    build:
+      context: ./sender
+      dockerfile: Dockerfile
+    container_name: sender
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      KAFKA_BOOTSTRAP_SERVER: kafka:9092
+      KAFKA_MAIL_TOPIC: "${KAFKA_MAIL_TOPIC}"
+      KAFKA_WHATSAPP_TOPIC: "${KAFKA_WHATSAPP_TOPIC}"
+    networks:
+      - signal-broker-network
+    profiles:
+      - sender
+
   frontend:
     build:
       context: ./frontend
@@ -63,15 +79,15 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: backend
-    ports:
-      - "8080:8080"
+    network_mode: host
     depends_on:
       kafka:
         condition: service_healthy
     environment:
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-    networks:
-      - signal-broker-network
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: localhost:9093
+      SIMULATOR_ENABLED: "false"
+      OLLAMA_BASE_URL: "${OLLAMA_BASE_URL}"
+      OLLAMA_MODEL_CLASSIFIER: "${OLLAMA_MODEL_CLASSIFIER}"
 
 networks:
   signal-broker-network:
