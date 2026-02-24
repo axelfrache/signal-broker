@@ -25,23 +25,15 @@ public class DefaultLabelingService implements LabelingService {
                 throw new LabelingException("Confidence score out of bounds: " + result.confidence());
             }
 
-            if (result.labels() != null && result.labels().size() > 8) {
-                throw new LabelingException("Too many labels returned by classifier (max 8)");
-            }
-
-            if (result.labels() != null && result.labels().stream().anyMatch(l -> l.length() > 20)) {
-                throw new LabelingException("Label exceeds maximum length of 20 characters");
-            }
-
             return new LabeledTicketEvent(
                     formatted.ticketId(),
                     Instant.now(),
                     result.subject(),
+                    formatted.body(),
+                    formatted.contact(),
                     result.category(),
                     result.ticketType(),
                     result.priority(),
-                    result.labels(),
-                    result.summary(),
                     result.confidence(),
                     1);
         } catch (Exception e) {

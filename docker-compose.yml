@@ -79,18 +79,15 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: backend
-    ports:
-      - "8080:8080"
+    network_mode: host
     depends_on:
       kafka:
         condition: service_healthy
     environment:
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: localhost:9093
       SIMULATOR_ENABLED: "false"
       OLLAMA_BASE_URL: "${OLLAMA_BASE_URL}"
       OLLAMA_MODEL_CLASSIFIER: "${OLLAMA_MODEL_CLASSIFIER}"
-    networks:
-      - signal-broker-network
 
 networks:
   signal-broker-network:

@@ -72,8 +72,6 @@ public class OllamaClassifierClient implements ClassifierClient {
                 - "category": String. Must be exactly one of: FRONTEND, BACKEND, INFRA, MOBILE
                 - "ticketType": String. Must be exactly one of: FEATURE, BUG, OTHER
                 - "priority": String. Must be exactly one of: P0, P1, P2, P3
-                - "labels": Array of Strings. Maximum 8 items, each max 20 characters.
-                - "summary": String. Short summary of the issue.
                 - "confidence": Number. Between 0.0 and 1.0 representing your confidence.
 
                 Ticket Body: %s
