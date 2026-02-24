@@ -26,6 +26,7 @@ public class DefaultFormattingService implements FormattingService {
         return new FormattedTicketEvent(
                 UUID.randomUUID(),
                 raw.channelType(),
+                raw.timestamp(),
                 Instant.now(),
                 normalizedBody,
                 raw.contact(),

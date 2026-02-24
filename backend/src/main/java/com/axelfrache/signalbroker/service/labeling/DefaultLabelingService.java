@@ -27,6 +27,7 @@ public class DefaultLabelingService implements LabelingService {
 
             return new LabeledTicketEvent(
                     formatted.ticketId(),
+                    formatted.receivedAt(),
                     Instant.now(),
                     result.subject(),
                     formatted.body(),

@@ -23,11 +23,12 @@ class DefaultFormattingServiceTest {
 
     @Test
     void testValidFormatting() {
+        var originalDate = Instant.parse("2026-02-22T14:32:18Z");
         var raw = new RawInboundEvent(
                 UUID.randomUUID(),
                 ChannelType.MAIL,
                 "msg-123",
-                Instant.now(),
+                originalDate,
                 "test@example.com",
                 "Hello world\n\nThis is a test message.",
                 Map.of(),
@@ -38,6 +39,8 @@ class DefaultFormattingServiceTest {
         assertNotNull(formatted);
         assertNotNull(formatted.ticketId());
         assertEquals(ChannelType.MAIL, formatted.channel());
+        assertEquals(originalDate, formatted.receivedAt());
+        assertNotNull(formatted.createdAt());
         assertEquals("Hello world This is a test message.", formatted.body());
         assertEquals("test@example.com", formatted.contact());
         assertEquals(1, formatted.schemaVersion());

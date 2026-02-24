@@ -11,6 +11,7 @@ import jakarta.validation.constraints.NotNull;
 public record FormattedTicketEvent(
                 @NotNull UUID ticketId,
                 @NotNull ChannelType channel,
+                @NotNull Instant receivedAt,
                 @NotNull Instant createdAt,
                 @NotBlank String body,
                 @NotBlank String contact,

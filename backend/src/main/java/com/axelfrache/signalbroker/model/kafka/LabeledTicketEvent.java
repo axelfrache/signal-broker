@@ -9,6 +9,7 @@ import java.util.UUID;
 
 public record LabeledTicketEvent(
                 UUID ticketId,
+                Instant receivedAt,
                 Instant labeledAt,
                 String subject,
                 String body,

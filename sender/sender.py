@@ -30,12 +30,12 @@ def create_producer():
         raise
 
 
-def to_raw_event(source_type, source_msg_id, contact, body, metadata=None):
+def to_raw_event(source_type, source_msg_id, contact, body, original_date, metadata=None):
     return {
         "eventId": str(uuid.uuid4()),
         "channelType": source_type,
         "sourceMessageId": source_msg_id,
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": original_date,
         "contact": contact,
         "body": body,
         "metadata": metadata or {},
@@ -55,7 +55,7 @@ def send_mail_messages(producer, mail_file="mail.json"):
             source_msg_id=f"mail-{i}-{uuid.uuid4().hex[:8]}",
             contact=msg["mail"],
             body=msg["message"],
-            metadata={"client": "sender-script", "originalDate": msg["date"]},
+            original_date=msg["date"],
         )
         try:
             future = producer.send(MAIL_TOPIC, value=event)
@@ -78,7 +78,7 @@ def send_whatsapp_messages(producer, whatsapp_file="whatsapp.json"):
             source_msg_id=f"wa-{i}-{uuid.uuid4().hex[:8]}",
             contact=str(msg["telephone"]),
             body=msg["message"],
-            metadata={"platform": "whatsapp", "originalDate": msg["date"]},
+            original_date=msg["date"],
         )
         try:
             future = producer.send(WHATSAPP_TOPIC, value=event)
