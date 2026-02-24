@@ -40,7 +40,7 @@ public class DiscordAlertingService implements AlertingService {
                 Contact: %s
                 Error: %s
                 Snippet: ```%s```
-                """.formatted(raw.sourceType(), raw.contact(), e.getMessage(), snippet);
+                """.formatted(raw.channelType(), raw.contact(), e.getMessage(), snippet);
 
         sendDiscordMessage(message);
     }

@@ -33,7 +33,7 @@ def create_producer():
 def to_raw_event(source_type, source_msg_id, contact, body, metadata=None):
     return {
         "eventId": str(uuid.uuid4()),
-        "sourceType": source_type,
+        "channelType": source_type,
         "sourceMessageId": source_msg_id,
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "contact": contact,

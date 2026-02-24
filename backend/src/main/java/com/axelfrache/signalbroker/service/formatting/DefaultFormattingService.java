@@ -1,7 +1,6 @@
 package com.axelfrache.signalbroker.service.formatting;
 
 import com.axelfrache.signalbroker.exception.FormattingException;
-import com.axelfrache.signalbroker.model.enums.ChannelType;
 import com.axelfrache.signalbroker.model.kafka.FormattedTicketEvent;
 import com.axelfrache.signalbroker.model.kafka.RawInboundEvent;
 import com.axelfrache.signalbroker.service.FormattingService;
@@ -25,16 +24,11 @@ public class DefaultFormattingService implements FormattingService {
         var subject = extractSubject(raw.body());
         var normalizedBody = raw.body().trim().replaceAll("\\s+", " ");
 
-        var channel = switch (raw.sourceType()) {
-            case MAIL -> ChannelType.MAIL;
-            case WHATSAPP -> ChannelType.WHATSAPP;
-        };
-
         return new FormattedTicketEvent(
                 UUID.randomUUID(),
                 raw.eventId(),
                 UUID.randomUUID(),
-                channel,
+                raw.channelType(),
                 Instant.now(),
                 subject,
                 normalizedBody,

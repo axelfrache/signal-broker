@@ -1,6 +1,6 @@
 package com.axelfrache.signalbroker.service.simulator;
 
-import com.axelfrache.signalbroker.model.enums.SourceType;
+import com.axelfrache.signalbroker.model.enums.ChannelType;
 import com.axelfrache.signalbroker.model.kafka.RawInboundEvent;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +15,8 @@ public class WhatsappMessageSource implements MessageSource {
     private final AtomicInteger counter = new AtomicInteger();
 
     @Override
-    public SourceType sourceType() {
-        return SourceType.WHATSAPP;
+    public ChannelType channelType() {
+        return ChannelType.WHATSAPP;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class WhatsappMessageSource implements MessageSource {
         int id = counter.incrementAndGet();
         return new RawInboundEvent(
                 UUID.randomUUID(),
-                SourceType.WHATSAPP,
+                ChannelType.WHATSAPP,
                 "msg-wa-" + id,
                 Instant.now(),
                 "+1234567890" + id,

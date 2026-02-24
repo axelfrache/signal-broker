@@ -2,7 +2,6 @@ package com.axelfrache.signalbroker.service.formatting;
 
 import com.axelfrache.signalbroker.exception.FormattingException;
 import com.axelfrache.signalbroker.model.enums.ChannelType;
-import com.axelfrache.signalbroker.model.enums.SourceType;
 import com.axelfrache.signalbroker.model.kafka.RawInboundEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +25,7 @@ class DefaultFormattingServiceTest {
     void testValidFormatting() {
         var raw = new RawInboundEvent(
                 UUID.randomUUID(),
-                SourceType.MAIL,
+                ChannelType.MAIL,
                 "msg-123",
                 Instant.now(),
                 "test@example.com",
@@ -50,7 +49,7 @@ class DefaultFormattingServiceTest {
     void testEmptyBodyThrowsException() {
         var raw = new RawInboundEvent(
                 UUID.randomUUID(),
-                SourceType.WHATSAPP,
+                ChannelType.WHATSAPP,
                 "msg-456",
                 Instant.now(),
                 "+1234567890",
@@ -67,7 +66,7 @@ class DefaultFormattingServiceTest {
         var longLine = "This is a very long text that exceeds eighty characters so it should be truncated properly when the formatting service processes it.";
         var raw = new RawInboundEvent(
                 UUID.randomUUID(),
-                SourceType.MAIL,
+                ChannelType.MAIL,
                 "msg-789",
                 Instant.now(),
                 "test2@test.com",

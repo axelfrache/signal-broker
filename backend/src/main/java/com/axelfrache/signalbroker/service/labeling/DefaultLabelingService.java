@@ -39,6 +39,7 @@ public class DefaultLabelingService implements LabelingService {
                     formatted.ticketId(),
                     Instant.now(),
                     result.category(),
+                    result.ticketType(),
                     result.priority(),
                     result.labels(),
                     result.summary(),

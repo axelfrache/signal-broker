@@ -41,7 +41,7 @@ public class SimulatorRunner implements CommandLineRunner {
             var source = messageSources.get(random.nextInt(messageSources.size()));
             var event = source.next();
 
-            switch (source.sourceType()) {
+            switch (source.channelType()) {
                 case WHATSAPP -> eventPublisher.publishWhatsappRaw(event);
                 case MAIL -> eventPublisher.publishMailRaw(event);
             }

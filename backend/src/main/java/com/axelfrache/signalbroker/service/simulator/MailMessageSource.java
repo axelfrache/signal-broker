@@ -1,6 +1,6 @@
 package com.axelfrache.signalbroker.service.simulator;
 
-import com.axelfrache.signalbroker.model.enums.SourceType;
+import com.axelfrache.signalbroker.model.enums.ChannelType;
 import com.axelfrache.signalbroker.model.kafka.RawInboundEvent;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +15,8 @@ public class MailMessageSource implements MessageSource {
     private final AtomicInteger counter = new AtomicInteger();
 
     @Override
-    public SourceType sourceType() {
-        return SourceType.MAIL;
+    public ChannelType channelType() {
+        return ChannelType.MAIL;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class MailMessageSource implements MessageSource {
         int id = counter.incrementAndGet();
         return new RawInboundEvent(
                 UUID.randomUUID(),
-                SourceType.MAIL,
+                ChannelType.MAIL,
                 "msg-mail-" + id,
                 Instant.now(),
                 "user" + id + "@example.com",

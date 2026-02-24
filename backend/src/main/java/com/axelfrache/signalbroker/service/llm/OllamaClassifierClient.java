@@ -68,8 +68,9 @@ public class OllamaClassifierClient implements ClassifierClient {
                 Analyze the following support message.
                 You MUST return a STRICT JSON object without any prose, formatting strings, or markdown ticks.
                 The JSON must contain exact these fields:
-                - "category": String. Must be exactly one of: AUTH, BILLING, BUG, OUTAGE, FEATURE_REQUEST, OTHER
-                - "priority": String. Must be exactly one of: P1, P2, P3, P4
+                - "category": String. Must be exactly one of: FRONTEND, BACKEND, INFRA, MOBILE
+                - "ticketType": String. Must be exactly one of: FEATURE, BUG, OTHER
+                - "priority": String. Must be exactly one of: P0, P1, P2, P3
                 - "labels": Array of Strings. Maximum 8 items, each max 20 characters.
                 - "summary": String. Short summary of the issue.
                 - "confidence": Number. Between 0.0 and 1.0 representing your confidence.
