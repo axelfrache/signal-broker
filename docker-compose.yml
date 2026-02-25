@@ -30,6 +30,95 @@ services:
       retries: 5
       start_period: 20s
 
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - signal-broker-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:latest
+    container_name: schema-registry
+    depends_on:
+      kafka:
+        condition: service_healthy
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: kafka:9092
+    networks:
+      - signal-broker-network
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -s http://localhost:8081/subjects || exit 1" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+
+  kafka-connect:
+    build:
+      context: ./connect
+      dockerfile: Dockerfile
+    container_name: kafka-connect
+    depends_on:
+      kafka:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      schema-registry:
+        condition: service_healthy
+    ports:
+      - "8083:8083"
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: kafka:9092
+      CONNECT_REST_PORT: 8083
+      CONNECT_GROUP_ID: signal-broker-connect
+      CONNECT_CONFIG_STORAGE_TOPIC: _connect-configs
+      CONNECT_OFFSET_STORAGE_TOPIC: _connect-offsets
+      CONNECT_STATUS_STORAGE_TOPIC: _connect-status
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
+      CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
+      CONNECT_REST_ADVERTISED_HOST_NAME: kafka-connect
+      CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components
+    networks:
+      - signal-broker-network
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -s http://localhost:8083/connectors || exit 1" ]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
+  connect-init:
+    image: curlimages/curl:latest
+    container_name: connect-init
+    depends_on:
+      kafka-connect:
+        condition: service_healthy
+    volumes:
+      - ./connect:/config
+    entrypoint: [ "sh", "-c", "for f in /config/*.json; do echo Registering from $$f; curl -s -X POST http://kafka-connect:8083/connectors -H 'Content-Type: application/json' -d @$$f; echo; done; echo Done" ]
+    networks:
+      - signal-broker-network
+
   kafbat-ui:
     image: ghcr.io/kafbat/kafka-ui:latest
     container_name: kafbat-ui
@@ -37,11 +126,14 @@ services:
       kafka:
         condition: service_healthy
     ports:
-      - "8081:8080"
+      - "8082:8080"
     environment:
       DYNAMIC_CONFIG_ENABLED: "true"
       KAFKA_CLUSTERS_0_NAME: signal-broker-cluster
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_KAFKACONNECT_0_NAME: signal-broker-connect
+      KAFKA_CLUSTERS_0_KAFKACONNECT_0_ADDRESS: http://kafka-connect:8083
+      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://schema-registry:8081
     networks:
       - signal-broker-network
 
@@ -95,3 +187,4 @@ networks:
 
 volumes:
   kafka-data:
+  postgres-data:

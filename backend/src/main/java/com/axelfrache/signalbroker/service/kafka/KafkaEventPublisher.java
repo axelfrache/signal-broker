@@ -16,6 +16,8 @@ public class KafkaEventPublisher implements EventPublisher {
 
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
+    private final KafkaTemplate<String, Object> schemaRegistryKafkaTemplate;
+
     @Value("${kafka.topics.whatsapp.raw}")
     private String whatsappRawTopic;
 
@@ -56,7 +58,7 @@ public class KafkaEventPublisher implements EventPublisher {
 
     @Override
     public void publishLabeled(@lombok.NonNull LabeledTicketEvent event) {
-        kafkaTemplate.send(labeledTopic, event.ticketId().toString(), event);
+        schemaRegistryKafkaTemplate.send(labeledTopic, event.ticketId().toString(), event);
     }
 
     @Override

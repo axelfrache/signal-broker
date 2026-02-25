@@ -1,0 +1,21 @@
+{
+    "name": "sink-labeled-tickets",
+    "config": {
+        "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+        "tasks.max": "1",
+        "topics": "support.labeled",
+        "connection.url": "jdbc:postgresql://postgres:5432/signalbroker",
+        "connection.user": "signalbroker",
+        "connection.password": "signalbroker",
+        "insert.mode": "upsert",
+        "pk.mode": "record_value",
+        "pk.fields": "ticketId",
+        "auto.create": "true",
+        "auto.evolve": "true",
+        "table.name.format": "labeled_tickets",
+        "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+        "value.converter": "io.confluent.connect.json.JsonSchemaConverter",
+        "value.converter.schema.registry.url": "http://schema-registry:8081",
+        "value.converter.schemas.enable": "true"
+    }
+}
