@@ -92,8 +92,8 @@ export default function DashboardPage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                <Card className="h-[120px]">
-                    <div className="p-5 flex items-start justify-between h-full">
+                <Card className="gap-0 py-0">
+                    <div className="px-5 py-4 flex items-start justify-between">
                         <div className="space-y-1">
                             <p className="text-sm font-medium text-muted-foreground">Total Tickets</p>
                             <div className="text-3xl font-bold">{stats.totalTickets}</div>
@@ -103,8 +103,8 @@ export default function DashboardPage() {
                     </div>
                 </Card>
 
-                <Card className="h-[120px]">
-                    <div className="p-5 flex items-start justify-between h-full">
+                <Card className="gap-0 py-0">
+                    <div className="px-5 py-4 flex items-start justify-between">
                         <div className="space-y-1">
                             <p className="text-sm font-medium text-muted-foreground">Critical (P0)</p>
                             <div className="text-3xl font-bold text-destructive">{p0Count}</div>
@@ -116,8 +116,8 @@ export default function DashboardPage() {
                     </div>
                 </Card>
 
-                <Card className="h-[120px]">
-                    <div className="p-5 flex items-start justify-between h-full">
+                <Card className="gap-0 py-0">
+                    <div className="px-5 py-4 flex items-start justify-between">
                         <div className="space-y-1">
                             <p className="text-sm font-medium text-muted-foreground">Avg Confidence</p>
                             <div className="text-3xl font-bold">{(stats.avgConfidence * 100).toFixed(1)}%</div>
