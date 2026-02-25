@@ -9,6 +9,7 @@ import { Skeleton } from "../components/ui/skeleton";
 import { Button } from "../components/ui/button";
 import { ArrowLeft, Clock, User, Fingerprint, Tag, Code2, AlertTriangle } from "lucide-react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../components/ui/accordion";
+import { TicketCommentsThread } from "../components/tickets/TicketCommentsThread";
 
 export default function TicketDetailPage() {
     const { ticketId } = useParams<{ ticketId: string }>();
@@ -110,6 +111,8 @@ export default function TicketDetailPage() {
                             </AccordionContent>
                         </AccordionItem>
                     </Accordion>
+
+                    <TicketCommentsThread ticketId={ticket.ticketId} />
                 </div>
 
                 <div className="space-y-6">
