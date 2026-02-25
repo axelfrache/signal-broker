@@ -1,0 +1,23 @@
+{
+    "name": "sink-discord-dlq-alerts",
+    "config": {
+        "connector.class": "io.confluent.connect.http.HttpSinkConnector",
+        "tasks.max": "1",
+        "topics.regex": "support\\.(whatsapp|mail)\\.format\\.dlq|support\\.label\\.dlq",
+        "http.api.url": "${env:DISCORD_WEBHOOK_URL}",
+        "request.method": "POST",
+        "headers": "Content-Type:application/json",
+        "request.body.format": "string",
+        "batch.max.size": "1",
+        "max.retries": "3",
+        "retry.backoff.ms": "3000",
+        "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "value.converter.schemas.enable": "false",
+        "reporter.bootstrap.servers": "kafka:9092",
+        "reporter.error.topic.name": "discord-connector-errors",
+        "reporter.error.topic.replication.factor": "1",
+        "transforms": "DiscordFormat",
+        "transforms.DiscordFormat.type": "com.axelfrache.kafka.transforms.DiscordDlqFormatter"
+    }
+}
