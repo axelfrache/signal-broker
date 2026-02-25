@@ -115,6 +115,7 @@ public class LabeledTicketService {
         dto.setCategory(entity.getCategory());
         dto.setPriority(entity.getPriority());
         dto.setTicketType(entity.getTicketType());
+        dto.setCommunId(entity.getCommunId());
         return dto;
     }
 
@@ -129,6 +130,7 @@ public class LabeledTicketService {
         dto.setCategory(entity.getCategory());
         dto.setPriority(entity.getPriority());
         dto.setTicketType(entity.getTicketType());
+        dto.setCommunId(entity.getCommunId());
         dto.setBody(entity.getBody());
         dto.setSchemaVersion(entity.getSchemaVersion());
         return dto;

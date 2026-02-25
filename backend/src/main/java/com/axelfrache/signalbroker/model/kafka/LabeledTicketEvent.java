@@ -18,5 +18,6 @@ public record LabeledTicketEvent(
                 TicketType ticketType,
                 Priority priority,
                 double confidence,
+                Long communId,
                 int schemaVersion) {
 }

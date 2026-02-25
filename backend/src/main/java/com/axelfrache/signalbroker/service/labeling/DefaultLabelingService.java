@@ -5,6 +5,7 @@ import com.axelfrache.signalbroker.model.kafka.FormattedTicketEvent;
 import com.axelfrache.signalbroker.model.kafka.LabeledTicketEvent;
 import com.axelfrache.signalbroker.service.ClassifierClient;
 import com.axelfrache.signalbroker.service.LabelingService;
+import com.axelfrache.signalbroker.service.TicketGroupingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.time.Instant;
 public class DefaultLabelingService implements LabelingService {
 
     private final ClassifierClient classifierClient;
+    private final TicketGroupingService ticketGroupingService;
 
     @Override
     public LabeledTicketEvent label(@lombok.NonNull FormattedTicketEvent formatted) throws LabelingException {
@@ -25,7 +27,8 @@ public class DefaultLabelingService implements LabelingService {
                 throw new LabelingException("Confidence score out of bounds: " + result.confidence());
             }
 
-            return new LabeledTicketEvent(
+            // Créer le ticket labélisé sans communId
+            var labeledTicket = new LabeledTicketEvent(
                     formatted.ticketId(),
                     formatted.receivedAt(),
                     Instant.now(),
@@ -36,7 +39,26 @@ public class DefaultLabelingService implements LabelingService {
                     result.ticketType(),
                     result.priority(),
                     result.confidence(),
+                    null, // communId sera assigné juste après
                     1);
+
+            // Assigner le communId en fonction de la similarité avec les autres tickets
+            Long communId = ticketGroupingService.assignCommunId(labeledTicket);
+
+            // Retourner une nouvelle version avec le communId
+            return new LabeledTicketEvent(
+                    labeledTicket.ticketId(),
+                    labeledTicket.receivedAt(),
+                    labeledTicket.labeledAt(),
+                    labeledTicket.subject(),
+                    labeledTicket.body(),
+                    labeledTicket.contact(),
+                    labeledTicket.category(),
+                    labeledTicket.ticketType(),
+                    labeledTicket.priority(),
+                    labeledTicket.confidence(),
+                    communId,
+                    labeledTicket.schemaVersion());
         } catch (Exception e) {
             throw new LabelingException("Failed to label ticket: " + e.getMessage(), e);
         }
