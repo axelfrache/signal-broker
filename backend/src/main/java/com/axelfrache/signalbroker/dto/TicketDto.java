@@ -17,5 +17,5 @@ public class TicketDto {
     private String category;
     private String priority;
     private String ticketType;
-    private Long communId;
+    private Long commonId;
 }

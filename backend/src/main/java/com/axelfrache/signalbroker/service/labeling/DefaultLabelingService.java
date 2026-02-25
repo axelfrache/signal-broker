@@ -27,7 +27,6 @@ public class DefaultLabelingService implements LabelingService {
                 throw new LabelingException("Confidence score out of bounds: " + result.confidence());
             }
 
-            // Créer le ticket labélisé sans communId
             var labeledTicket = new LabeledTicketEvent(
                     formatted.ticketId(),
                     formatted.receivedAt(),
@@ -39,13 +38,11 @@ public class DefaultLabelingService implements LabelingService {
                     result.ticketType(),
                     result.priority(),
                     result.confidence(),
-                    null, // communId sera assigné juste après
+                    null,
                     1);
 
-            // Assigner le communId en fonction de la similarité avec les autres tickets
-            Long communId = ticketGroupingService.assignCommunId(labeledTicket);
+            var commonId = ticketGroupingService.assignCommonId(labeledTicket);
 
-            // Retourner une nouvelle version avec le communId
             return new LabeledTicketEvent(
                     labeledTicket.ticketId(),
                     labeledTicket.receivedAt(),
@@ -57,7 +54,7 @@ public class DefaultLabelingService implements LabelingService {
                     labeledTicket.ticketType(),
                     labeledTicket.priority(),
                     labeledTicket.confidence(),
-                    communId,
+                    commonId,
                     labeledTicket.schemaVersion());
         } catch (Exception e) {
             throw new LabelingException("Failed to label ticket: " + e.getMessage(), e);

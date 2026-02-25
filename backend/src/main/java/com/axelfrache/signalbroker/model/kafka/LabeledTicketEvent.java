@@ -8,16 +8,16 @@ import java.time.Instant;
 import java.util.UUID;
 
 public record LabeledTicketEvent(
-                UUID ticketId,
-                Instant receivedAt,
-                Instant labeledAt,
-                String subject,
-                String body,
-                String contact,
-                Category category,
-                TicketType ticketType,
-                Priority priority,
-                double confidence,
-                Long communId,
-                int schemaVersion) {
+        UUID ticketId,
+        Instant receivedAt,
+        Instant labeledAt,
+        String subject,
+        String body,
+        String contact,
+        Category category,
+        TicketType ticketType,
+        Priority priority,
+        double confidence,
+        Long commonId,
+        int schemaVersion) {
 }
