@@ -9,7 +9,7 @@ compression_level = 1
 
 rpc_bind_addr = "[::]:3901"
 rpc_public_addr = "garage:3901"
-rpc_secret = "a772bafe2ae119169a8c2fa82039bb0b6ea71941c418f7646dcd818a442bf285"
+rpc_secret = "__RPC_SECRET__"
 
 [s3_api]
 s3_region = "garage"
@@ -23,4 +23,4 @@ index = "index.html"
 
 [admin]
 api_bind_addr = "[::]:3903"
-admin_token = "signal-broker-admin-token"
+admin_token = "__ADMIN_TOKEN__"

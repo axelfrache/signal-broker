@@ -195,29 +195,56 @@ services:
     networks:
       - signal-broker-network
 
+  garage-config:
+    image: alpine:latest
+    container_name: garage-config
+    volumes:
+      - ./garage/garage.toml:/etc/garage.toml.tpl:ro
+      - garage-config:/etc/garage
+    environment:
+      GARAGE_RPC_SECRET: "${GARAGE_RPC_SECRET}"
+      GARAGE_ADMIN_TOKEN: "${GARAGE_ADMIN_TOKEN}"
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        sed -e "s|__RPC_SECRET__|$$GARAGE_RPC_SECRET|g" \
+            -e "s|__ADMIN_TOKEN__|$$GARAGE_ADMIN_TOKEN|g" \
+            /etc/garage.toml.tpl > /etc/garage/garage.toml &&
+        echo "==> garage.toml generated with injected secrets"
+    networks:
+      - signal-broker-network
+
   garage:
-    image: dxflrs/garage:v1.0.0
+    build:
+      context: ./garage
+      dockerfile: Dockerfile
     container_name: garage
     restart: unless-stopped
-    ports:
-      - "3900:3900"
-      - "3903:3903"
+    depends_on:
+      garage-config:
+        condition: service_completed_successfully
     volumes:
       - garage-meta:/var/lib/garage/meta
       - garage-data:/var/lib/garage/data
-      - ./garage.toml:/etc/garage.toml
+      - garage-config:/etc/garage:ro
+    environment:
+      GARAGE_CONFIG_FILE: "/etc/garage/garage.toml"
     networks:
       - signal-broker-network
     healthcheck:
-      test: [ "NONE" ]
-      disable: true
+      test: [ "CMD", "/bin/wget", "-qO-", "http://localhost:3903/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   garage-init:
     image: curlimages/curl:latest
     container_name: garage-init
     depends_on:
       garage:
-        condition: service_started
+        condition: service_healthy
       kafka-connect:
         condition: service_healthy
     volumes:
@@ -241,3 +268,4 @@ volumes:
   postgres-data:
   garage-meta:
   garage-data:
+  garage-config:
