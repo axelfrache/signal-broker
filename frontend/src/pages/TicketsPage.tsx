@@ -84,7 +84,6 @@ export default function TicketsPage() {
                         <SelectItem value="P1">P1 - High</SelectItem>
                         <SelectItem value="P2">P2 - Medium</SelectItem>
                         <SelectItem value="P3">P3 - Low</SelectItem>
-                        <SelectItem value="P4">P4 - Trivial</SelectItem>
                     </SelectContent>
                 </Select>
 
@@ -96,9 +95,8 @@ export default function TicketsPage() {
                         <SelectItem value="ALL">All Categories</SelectItem>
                         <SelectItem value="FRONTEND">FRONTEND</SelectItem>
                         <SelectItem value="BACKEND">BACKEND</SelectItem>
-                        <SelectItem value="BILLING">BILLING</SelectItem>
-                        <SelectItem value="ACCOUNT">ACCOUNT</SelectItem>
-                        <SelectItem value="OTHER">OTHER</SelectItem>
+                        <SelectItem value="INFRA">INFRA</SelectItem>
+                        <SelectItem value="MOBILE">MOBILE</SelectItem>
                     </SelectContent>
                 </Select>
             </div>

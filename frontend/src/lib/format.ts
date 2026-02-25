@@ -12,8 +12,7 @@ export function getPriorityVariant(priority: string): 'default' | 'destructive' 
         case 'P0': return 'destructive';
         case 'P1': return 'default';
         case 'P2':
-        case 'P3':
-        case 'P4': return 'outline';
+        case 'P3': return 'outline';
         default: return 'secondary';
     }
 }
