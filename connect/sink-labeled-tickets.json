@@ -14,12 +14,8 @@
         "auto.evolve": "true",
         "table.name.format": "labeled_tickets",
         "key.converter": "org.apache.kafka.connect.storage.StringConverter",
-        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
-        "value.converter.schemas.enable": "true",
-        "transforms": "TimestampConverter",
-        "transforms.TimestampConverter.type": "org.apache.kafka.connect.transforms.TimestampConverter$Value",
-        "transforms.TimestampConverter.target.type": "Timestamp",
-        "transforms.TimestampConverter.field": "labeledAt",
-        "transforms.TimestampConverter.format": "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'"
+        "value.converter": "io.confluent.connect.json.JsonSchemaConverter",
+        "value.converter.schema.registry.url": "http://schema-registry:8081",
+        "value.converter.schemas.enable": "true"
     }
 }

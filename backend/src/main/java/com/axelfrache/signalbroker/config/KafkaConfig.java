@@ -38,6 +38,9 @@ public class KafkaConfig {
     @Value("${kafka.concurrency.labeler:1}")
     private int labelerConcurrency;
 
+    @Value("${kafka.schema-registry.url:http://localhost:8081}")
+    private String schemaRegistryUrl;
+
     @Bean
     public ProducerFactory<String, Object> producerFactory() {
         var configProps = new HashMap<String, Object>();
@@ -55,6 +58,24 @@ public class KafkaConfig {
     @Bean
     public KafkaTemplate<String, Object> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
+    }
+
+    @Bean
+    public ProducerFactory<String, Object> schemaRegistryProducerFactory() {
+        var configProps = new HashMap<String, Object>();
+        configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
+                io.confluent.kafka.serializers.json.KafkaJsonSchemaSerializer.class);
+        configProps.put("schema.registry.url", schemaRegistryUrl);
+        configProps.put("auto.register.schemas", true);
+
+        return new DefaultKafkaProducerFactory<>(configProps);
+    }
+
+    @Bean
+    public KafkaTemplate<String, Object> schemaRegistryKafkaTemplate() {
+        return new KafkaTemplate<>(schemaRegistryProducerFactory());
     }
 
     @Bean
