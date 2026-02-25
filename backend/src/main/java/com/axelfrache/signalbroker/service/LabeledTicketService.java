@@ -51,15 +51,15 @@ public class LabeledTicketService {
         }
         if (fromTime == null) {
             var minTime = repository.findMinReceivedAt();
-            fromTime = minTime != null ? minTime : toTime - (7 * 86400); // Default to all time if possible
+            fromTime = minTime != null ? minTime : toTime - (7 * 86400);
         }
 
         var totalCount = repository.countByTimeRange(fromTime, toTime);
         var rangeInSeconds = toTime - fromTime;
-        var bucketSize = 3600.0; // 1 hour by default
+        var bucketSize = 3600.0;
 
         if (rangeInSeconds > 86400 * 7) {
-            bucketSize = 86400.0; // 1 day if range > 7 days
+            bucketSize = 86400.0;
         }
 
         var priorityRows = repository.countByPriorityInTimeRange(fromTime, toTime);
@@ -115,6 +115,7 @@ public class LabeledTicketService {
         dto.setCategory(entity.getCategory());
         dto.setPriority(entity.getPriority());
         dto.setTicketType(entity.getTicketType());
+        dto.setCommonId(entity.getCommonId());
         return dto;
     }
 
@@ -129,6 +130,7 @@ public class LabeledTicketService {
         dto.setCategory(entity.getCategory());
         dto.setPriority(entity.getPriority());
         dto.setTicketType(entity.getTicketType());
+        dto.setCommonId(entity.getCommonId());
         dto.setBody(entity.getBody());
         dto.setSchemaVersion(entity.getSchemaVersion());
         return dto;

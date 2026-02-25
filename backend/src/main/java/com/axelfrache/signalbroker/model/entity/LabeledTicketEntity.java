@@ -51,4 +51,7 @@ public class LabeledTicketEntity {
     @Column(name = "priority")
     private String priority;
 
+    @Column(name = "\"commonId\"")
+    private Long commonId;
+
 }
