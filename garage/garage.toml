@@ -3,13 +3,13 @@ data_dir = "/var/lib/garage/data"
 
 db_engine = "lmdb"
 
-replication_mode = "none"
+replication_factor = 1
 
 compression_level = 1
 
 rpc_bind_addr = "[::]:3901"
-rpc_public_addr = "127.0.0.1:3901"
-rpc_secret = "changeme1234567890123456789012345678901234567890123456789012345="
+rpc_public_addr = "garage:3901"
+rpc_secret = "__RPC_SECRET__"
 
 [s3_api]
 s3_region = "garage"
@@ -23,5 +23,4 @@ index = "index.html"
 
 [admin]
 api_bind_addr = "[::]:3903"
-metrics_token = "changeme1234567890123456789012345678901234567890123456789012345="
-admin_token = "changeme1234567890123456789012345678901234567890123456789012345="
+admin_token = "__ADMIN_TOKEN__"

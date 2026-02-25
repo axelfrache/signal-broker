@@ -174,38 +174,98 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
+      postgres:
+        condition: service_healthy
+      schema-registry:
+        condition: service_healthy
     ports:
       - "8080:8080"
     extra_hosts:
       - "host.docker.internal:host-gateway"
+      - "ollama-host:192.168.1.30"
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/${POSTGRES_DB}"
+      SPRING_DATASOURCE_USERNAME: "${POSTGRES_USER}"
+      SPRING_DATASOURCE_PASSWORD: "${POSTGRES_PASSWORD}"
+      KAFKA_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
       SIMULATOR_ENABLED: "false"
-      OLLAMA_BASE_URL: "${OLLAMA_BASE_URL:-http://host.docker.internal:11434}"
+      OLLAMA_BASE_URL: "${OLLAMA_BASE_URL}"
       OLLAMA_MODEL_CLASSIFIER: "${OLLAMA_MODEL_CLASSIFIER}"
     networks:
       - signal-broker-network
 
-  garage:
-    image: dxflrs/garage:v1.3.1
-    container_name: my-garage
-    restart: unless-stopped
+  garage-config:
+    image: alpine:latest
+    container_name: garage-config
     volumes:
-      - ./meta:/var/lib/garage/meta
-      - ./data:/var/lib/garage/data
-      - ./garage.toml:/etc/garage.toml
+      - ./garage/garage.toml:/etc/garage.toml.tpl:ro
+      - garage-config:/etc/garage
+    environment:
+      GARAGE_RPC_SECRET: "${GARAGE_RPC_SECRET}"
+      GARAGE_ADMIN_TOKEN: "${GARAGE_ADMIN_TOKEN}"
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        sed -e "s|__RPC_SECRET__|$$GARAGE_RPC_SECRET|g" \
+            -e "s|__ADMIN_TOKEN__|$$GARAGE_ADMIN_TOKEN|g" \
+            /etc/garage.toml.tpl > /etc/garage/garage.toml &&
+        echo "==> garage.toml generated with injected secrets"
+    networks:
+      - signal-broker-network
+
+  garage:
+    build:
+      context: ./garage
+      dockerfile: Dockerfile
+    container_name: garage
+    restart: unless-stopped
+    depends_on:
+      garage-config:
+        condition: service_completed_successfully
+    volumes:
+      - garage-meta:/var/lib/garage/meta
+      - garage-data:/var/lib/garage/data
+      - garage-config:/etc/garage:ro
+    environment:
+      GARAGE_CONFIG_FILE: "/etc/garage/garage.toml"
     networks:
       - signal-broker-network
     healthcheck:
-      test: ["CMD", "garage", "status"]
+      test: [ "CMD", "/bin/wget", "-qO-", "http://localhost:3903/health" ]
       interval: 10s
       timeout: 5s
-      retries: 3
+      retries: 5
+      start_period: 10s
+
+  garage-init:
+    image: curlimages/curl:latest
+    container_name: garage-init
+    depends_on:
+      garage:
+        condition: service_healthy
+      kafka-connect:
+        condition: service_healthy
+    volumes:
+      - ./scripts/garage-init.sh:/garage-init.sh
+    entrypoint: [ "sh", "/garage-init.sh" ]
+    environment:
+      GARAGE_ADMIN_TOKEN: "${GARAGE_ADMIN_TOKEN}"
+      GARAGE_BUCKET_NAME: "${GARAGE_BUCKET_NAME}"
+    networks:
+      - signal-broker-network
 
 networks:
   signal-broker-network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 10.200.0.0/16
 
 volumes:
   kafka-data:
   postgres-data:
+  garage-meta:
+  garage-data:
+  garage-config:
