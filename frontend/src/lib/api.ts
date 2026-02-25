@@ -1,5 +1,6 @@
 import type { Ticket, TicketDetails, PaginatedResponse } from '../types/ticket';
 import type { StatsOverview } from '../types/stats';
+import type { TicketComment, CreateTicketCommentRequest } from '../types/comment';
 
 const API_BASE = 'http://localhost:8080/api';
 
@@ -25,6 +26,20 @@ export const api = {
         get: async (id: string): Promise<TicketDetails> => {
             const res = await fetch(`${API_BASE}/tickets/${id}`);
             if (!res.ok) throw new Error('Failed to fetch ticket ' + id);
+            return res.json();
+        },
+        getComments: async (id: string): Promise<TicketComment[]> => {
+            const res = await fetch(`${API_BASE}/tickets/${id}/comments`);
+            if (!res.ok) throw new Error('Failed to fetch ticket comments');
+            return res.json();
+        },
+        addComment: async (id: string, req: CreateTicketCommentRequest): Promise<TicketComment> => {
+            const res = await fetch(`${API_BASE}/tickets/${id}/comments`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(req)
+            });
+            if (!res.ok) throw new Error('Failed to create ticket comment');
             return res.json();
         }
     },
