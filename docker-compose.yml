@@ -171,15 +171,36 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: backend
-    network_mode: host
     depends_on:
       kafka:
         condition: service_healthy
+    ports:
+      - "8080:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: localhost:9093
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       SIMULATOR_ENABLED: "false"
-      OLLAMA_BASE_URL: "${OLLAMA_BASE_URL}"
+      OLLAMA_BASE_URL: "${OLLAMA_BASE_URL:-http://host.docker.internal:11434}"
       OLLAMA_MODEL_CLASSIFIER: "${OLLAMA_MODEL_CLASSIFIER}"
+    networks:
+      - signal-broker-network
+
+  garage:
+    image: dxflrs/garage:v1.3.1
+    container_name: my-garage
+    restart: unless-stopped
+    volumes:
+      - ./meta:/var/lib/garage/meta
+      - ./data:/var/lib/garage/data
+      - ./garage.toml:/etc/garage.toml
+    networks:
+      - signal-broker-network
+    healthcheck:
+      test: ["CMD", "garage", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
 networks:
   signal-broker-network:
