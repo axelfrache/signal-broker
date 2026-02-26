@@ -3,7 +3,7 @@ package com.axelfrache.signalbroker.service.kafka;
 import com.axelfrache.signalbroker.model.enums.ProcessingStage;
 import com.axelfrache.signalbroker.model.kafka.DlqEvent;
 import com.axelfrache.signalbroker.model.kafka.RawInboundEvent;
-import com.axelfrache.signalbroker.service.AlertingService;
+
 import com.axelfrache.signalbroker.service.EventPublisher;
 import com.axelfrache.signalbroker.service.FormattingService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,6 @@ public class RawEventConsumer {
 
     private final FormattingService formattingService;
     private final EventPublisher eventPublisher;
-    private final AlertingService alertingService;
 
     @KafkaListener(topics = "${kafka.topics.whatsapp.raw}", groupId = "${kafka.groups.formatter}", containerFactory = "rawKafkaListenerContainerFactory")
     public void onWhatsappRaw(@lombok.NonNull RawInboundEvent raw, @lombok.NonNull Acknowledgment ack) {
@@ -29,7 +28,6 @@ public class RawEventConsumer {
             var formatted = formattingService.format(raw);
             eventPublisher.publishFormatted(formatted);
         } catch (Exception e) {
-            alertingService.formattingFailed(raw, e);
             eventPublisher.publishWhatsappFormatDlq(buildDlqEvent(raw, "support.whatsapp.raw", e));
         } finally {
             ack.acknowledge();
@@ -42,7 +40,6 @@ public class RawEventConsumer {
             var formatted = formattingService.format(raw);
             eventPublisher.publishFormatted(formatted);
         } catch (Exception e) {
-            alertingService.formattingFailed(raw, e);
             eventPublisher.publishMailFormatDlq(buildDlqEvent(raw, "support.mail.raw", e));
         } finally {
             ack.acknowledge();

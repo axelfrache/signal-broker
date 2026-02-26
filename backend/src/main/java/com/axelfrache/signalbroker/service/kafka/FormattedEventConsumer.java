@@ -3,7 +3,7 @@ package com.axelfrache.signalbroker.service.kafka;
 import com.axelfrache.signalbroker.model.enums.ProcessingStage;
 import com.axelfrache.signalbroker.model.kafka.DlqEvent;
 import com.axelfrache.signalbroker.model.kafka.FormattedTicketEvent;
-import com.axelfrache.signalbroker.service.AlertingService;
+
 import com.axelfrache.signalbroker.service.EventPublisher;
 import com.axelfrache.signalbroker.service.LabelingService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,6 @@ public class FormattedEventConsumer {
 
     private final LabelingService labelingService;
     private final EventPublisher eventPublisher;
-    private final AlertingService alertingService;
 
     @KafkaListener(topics = "${kafka.topics.formatted}", groupId = "${kafka.groups.labeler}", containerFactory = "formattedKafkaListenerContainerFactory")
     public void onFormatted(@lombok.NonNull FormattedTicketEvent formatted, @lombok.NonNull Acknowledgment ack) {
@@ -29,7 +28,6 @@ public class FormattedEventConsumer {
             var labeled = labelingService.label(formatted);
             eventPublisher.publishLabeled(labeled);
         } catch (Exception e) {
-            alertingService.labelingFailed(formatted, e);
             eventPublisher.publishLabelDlq(buildDlqEvent(formatted, e));
         } finally {
             ack.acknowledge();

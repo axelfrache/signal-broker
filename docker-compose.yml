@@ -184,6 +184,12 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
       - "ollama-host:192.168.1.30"
+    sysctls:
+      - net.ipv4.conf.all.route_localnet=1
+      - net.ipv4.ip_forward=1
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/${POSTGRES_DB}"
@@ -193,6 +199,11 @@ services:
       SIMULATOR_ENABLED: "false"
       OLLAMA_BASE_URL: "${OLLAMA_BASE_URL}"
       OLLAMA_MODEL_CLASSIFIER: "${OLLAMA_MODEL_CLASSIFIER}"
+      JAVA_OPTS: "-Djava.net.preferIPv4Stack=true"
+    dns:
+      - 8.8.8.8
+      - 10.0.0.3
+      - 162.38.114.8
     networks:
       - signal-broker-network
 
@@ -260,9 +271,6 @@ services:
 networks:
   signal-broker-network:
     driver: bridge
-    ipam:
-      config:
-        - subnet: 10.200.0.0/16
 
 volumes:
   kafka-data:
