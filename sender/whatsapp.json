@@ -1,103 +1,103 @@
 [
   {
     "date": "2026-02-22T18:23:45.123456",
-    "mail": "jean.dupont@gmail.com",
-    "message": "Bonjour,\n\nJe rencontre un problème urgent lors de ma tentative de finalisation d'achat. Lorsque je clique sur le bouton 'Valider le panier', j'obtiens systématiquement une erreur 404.\n\nCi-joint une capture d'écran du problème.\n\nPouvez-vous m'aider à résoudre cela au plus vite ?\n\nCordialement,\nJean Dupont"
+    "message": "Bonjour,\n\nJe rencontre un probl\u00e8me urgent lors de ma tentative de finalisation d'achat. Lorsque je clique sur le bouton 'Valider le panier', j'obtiens syst\u00e9matiquement une erreur 404.\n\nCi-joint une capture d'\u00e9cran du probl\u00e8me.\n\nPouvez-vous m'aider \u00e0 r\u00e9soudre cela au plus vite ?\n\nCordialement,\nJean Dupont",
+    "telephone": "+33610000000"
   },
   {
     "date": "2026-02-21T14:52:31.789012",
-    "mail": "marie_martin@yahoo.fr",
-    "message": "Bonjour,\n\nJe vous contacte car je ne parviens pas à télécharger mes documents. Le bouton 'Télécharger' ne s'affiche pas correctement sur mon interface.\n\nJ'ai essayé de rafraîchir la page et de me reconnecter, sans succès.\n\nMerci de votre aide.\n\nBien cordialement,\nMarie Martin"
+    "message": "Bonjour,\n\nJe vous contacte car je ne parviens pas \u00e0 t\u00e9l\u00e9charger mes documents. Le bouton 'T\u00e9l\u00e9charger' ne s'affiche pas correctement sur mon interface.\n\nJ'ai essay\u00e9 de rafra\u00eechir la page et de me reconnecter, sans succ\u00e8s.\n\nMerci de votre aide.\n\nBien cordialement,\nMarie Martin",
+    "telephone": "+33610000001"
   },
   {
     "date": "2026-02-20T10:38:17.345678",
-    "mail": "pierre.bernard@hotmail.fr",
-    "message": "URGENT - Problème critique en production\n\nBonjour,\n\nNous avons un problème majeur sur l'environnement de production ! Des erreurs timeout apparaissent partout et nos utilisateurs ne peuvent plus accéder au service.\n\nVeuillez trouver en pièce jointe une vidéo montrant l'ampleur du problème.\n\nMerci d'intervenir immédiatement.\n\nPierre Bernard\nResponsable Technique"
+    "message": "URGENT - Probl\u00e8me critique en production\n\nBonjour,\n\nNous avons un probl\u00e8me majeur sur l'environnement de production ! Des erreurs timeout apparaissent partout et nos utilisateurs ne peuvent plus acc\u00e9der au service.\n\nVeuillez trouver en pi\u00e8ce jointe une vid\u00e9o montrant l'ampleur du probl\u00e8me.\n\nMerci d'intervenir imm\u00e9diatement.\n\nPierre Bernard\nResponsable Technique",
+    "telephone": "+33610000002"
   },
   {
     "date": "2026-02-19T16:14:52.901234",
-    "mail": "sophie_dubois@outlook.com",
-    "message": "Bonjour l'équipe support,\n\nDepuis ce matin, il m'est impossible de me connecter à l'API. J'obtiens une erreur de connexion à chaque tentative.\n\nEst-ce un problème connu ? Y a-t-il une maintenance en cours ?\n\nMerci de me tenir informée.\n\nCordialement,\nSophie Dubois"
+    "message": "Bonjour l'\u00e9quipe support,\n\nDepuis ce matin, il m'est impossible de me connecter \u00e0 l'API. J'obtiens une erreur de connexion \u00e0 chaque tentative.\n\nEst-ce un probl\u00e8me connu ? Y a-t-il une maintenance en cours ?\n\nMerci de me tenir inform\u00e9e.\n\nCordialement,\nSophie Dubois",
+    "telephone": "+33610000003"
   },
   {
     "date": "2026-02-18T12:47:28.567890",
-    "mail": "luc.lambert@free.fr",
-    "message": "Bonjour,\n\nJe souhaite créer un nouveau compte mais le formulaire d'inscription ne fonctionne pas. Lorsque je remplis tous les champs et clique sur 'S'inscrire', rien ne se passe.\n\nJ'ai testé sur Chrome et Firefox, même résultat.\n\nVous trouverez une capture d'écran en pièce jointe.\n\nEn vous remerciant,\nLuc Lambert"
+    "message": "Bonjour,\n\nJe souhaite cr\u00e9er un nouveau compte mais le formulaire d'inscription ne fonctionne pas. Lorsque je remplis tous les champs et clique sur 'S'inscrire', rien ne se passe.\n\nJ'ai test\u00e9 sur Chrome et Firefox, m\u00eame r\u00e9sultat.\n\nVous trouverez une capture d'\u00e9cran en pi\u00e8ce jointe.\n\nEn vous remerciant,\nLuc Lambert",
+    "telephone": "+33610000004"
   },
   {
     "date": "2026-02-17T09:25:13.234567",
-    "mail": "claire.moreau@gmail.com",
-    "message": "Bonjour,\n\nJ'ai un bug assez gênant sur ma page de profil. La page ne charge pas correctement et reste bloquée sur un écran blanc.\n\nJ'ai essayé de vider le cache et de changer de navigateur, mais le problème persiste.\n\nJe vous joins des captures d'écran et une vidéo du problème pour mieux illustrer la situation.\n\nMerci d'avance pour votre aide !\n\nClaire Moreau"
+    "message": "Bonjour,\n\nJ'ai un bug assez g\u00eanant sur ma page de profil. La page ne charge pas correctement et reste bloqu\u00e9e sur un \u00e9cran blanc.\n\nJ'ai essay\u00e9 de vider le cache et de changer de navigateur, mais le probl\u00e8me persiste.\n\nJe vous joins des captures d'\u00e9cran et une vid\u00e9o du probl\u00e8me pour mieux illustrer la situation.\n\nMerci d'avance pour votre aide !\n\nClaire Moreau",
+    "telephone": "+33610000005"
   },
   {
     "date": "2026-02-16T15:58:39.890123",
-    "mail": "thomas_rousseau@yahoo.fr",
-    "message": "Bonjour,\n\nJe rencontre une erreur 403 (accès interdit) lorsque j'essaie de sauvegarder mes modifications dans les paramètres.\n\nPourtant, je suis bien connecté avec mon compte administrateur.\n\nPourriez-vous vérifier mes droits d'accès ?\n\nCordialement,\nThomas Rousseau",
-    "media": null
+    "message": "Bonjour,\n\nJe rencontre une erreur 403 (acc\u00e8s interdit) lorsque j'essaie de sauvegarder mes modifications dans les param\u00e8tres.\n\nPourtant, je suis bien connect\u00e9 avec mon compte administrateur.\n\nPourriez-vous v\u00e9rifier mes droits d'acc\u00e8s ?\n\nCordialement,\nThomas Rousseau",
+    "media": null,
+    "telephone": "+33610000006"
   },
   {
     "date": "2026-02-15T11:33:05.456789",
-    "mail": "emma.dupont@hotmail.fr",
-    "message": "Bonjour,\n\nJe vous signale un problème d'affichage sur votre site. Les images du carousel principal ne se chargent pas, je ne vois que des carrés gris.\n\nCela nuit vraiment à l'expérience utilisateur.\n\nCapture d'écran ci-jointe.\n\nBonne journée,\nEmma Dupont"
+    "message": "Bonjour,\n\nJe vous signale un probl\u00e8me d'affichage sur votre site. Les images du carousel principal ne se chargent pas, je ne vois que des carr\u00e9s gris.\n\nCela nuit vraiment \u00e0 l'exp\u00e9rience utilisateur.\n\nCapture d'\u00e9cran ci-jointe.\n\nBonne journ\u00e9e,\nEmma Dupont",
+    "telephone": "+33610000007"
   },
   {
     "date": "2026-02-14T08:11:47.012345",
-    "mail": "jean_martin@outlook.com",
-    "message": "Bonjour,\n\nJe constate que le site est extrêmement lent depuis ce matin. Chaque page met plus de 30 secondes à charger, ce qui rend l'utilisation quasi impossible.\n\nEst-ce un problème généralisé ou venant de mon côté ?\n\nMerci,\nJean Martin"
+    "message": "Bonjour,\n\nJe constate que le site est extr\u00eamement lent depuis ce matin. Chaque page met plus de 30 secondes \u00e0 charger, ce qui rend l'utilisation quasi impossible.\n\nEst-ce un probl\u00e8me g\u00e9n\u00e9ralis\u00e9 ou venant de mon c\u00f4t\u00e9 ?\n\nMerci,\nJean Martin",
+    "telephone": "+33610000008"
   },
   {
     "date": "2026-02-13T17:44:22.678901",
-    "mail": "marie.bernard@free.fr",
-    "message": "Bonjour,\n\nJ'essaie de télécharger ma facture du mois dernier depuis mon espace client, mais je reçois une erreur à chaque tentative.\n\nJ'ai vraiment besoin de ce document pour ma comptabilité.\n\nPourriez-vous me l'envoyer par mail ou résoudre le problème de téléchargement ?\n\nVidéo du bug en pièce jointe.\n\nMerci beaucoup,\nMarie Bernard"
+    "message": "Bonjour,\n\nJ'essaie de t\u00e9l\u00e9charger ma facture du mois dernier depuis mon espace client, mais je re\u00e7ois une erreur \u00e0 chaque tentative.\n\nJ'ai vraiment besoin de ce document pour ma comptabilit\u00e9.\n\nPourriez-vous me l'envoyer par mail ou r\u00e9soudre le probl\u00e8me de t\u00e9l\u00e9chargement ?\n\nVid\u00e9o du bug en pi\u00e8ce jointe.\n\nMerci beaucoup,\nMarie Bernard",
+    "telephone": "+33610000009"
   },
   {
     "date": "2026-02-12T14:27:58.234567",
-    "mail": "pierre_dubois@gmail.com",
-    "message": "Bonjour,\n\nJe ne parviens pas à effectuer mon paiement. J'obtiens systématiquement le message d'erreur 'INVALID_TOKEN'.\n\nJ'ai essayé avec deux cartes bancaires différentes, même résultat.\n\nCapture d'écran jointe.\n\nPouvez-vous m'aider rapidement ?\n\nCordialement,\nPierre Dubois"
+    "message": "Bonjour,\n\nJe ne parviens pas \u00e0 effectuer mon paiement. J'obtiens syst\u00e9matiquement le message d'erreur 'INVALID_TOKEN'.\n\nJ'ai essay\u00e9 avec deux cartes bancaires diff\u00e9rentes, m\u00eame r\u00e9sultat.\n\nCapture d'\u00e9cran jointe.\n\nPouvez-vous m'aider rapidement ?\n\nCordialement,\nPierre Dubois",
+    "telephone": "+33610000010"
   },
   {
     "date": "2026-02-11T10:56:34.890123",
-    "mail": "sophie.lambert@yahoo.fr",
-    "message": "URGENT - Compte bloqué\n\nBonjour,\n\nMon compte a été bloqué sans raison apparente et je ne peux plus accéder à mes données.\n\nJ'ai besoin de récupérer l'accès de toute urgence car j'ai des informations importantes à récupérer.\n\nMerci de traiter cette demande en priorité.\n\nSophie Lambert"
+    "message": "URGENT - Compte bloqu\u00e9\n\nBonjour,\n\nMon compte a \u00e9t\u00e9 bloqu\u00e9 sans raison apparente et je ne peux plus acc\u00e9der \u00e0 mes donn\u00e9es.\n\nJ'ai besoin de r\u00e9cup\u00e9rer l'acc\u00e8s de toute urgence car j'ai des informations importantes \u00e0 r\u00e9cup\u00e9rer.\n\nMerci de traiter cette demande en priorit\u00e9.\n\nSophie Lambert",
+    "telephone": "+33610000011"
   },
   {
     "date": "2026-02-10T16:42:11.456789",
-    "mail": "luc_moreau@hotmail.fr",
-    "message": "Bonjour,\n\nJe ne reçois plus les notifications depuis quelques jours. J'ai vérifié mes paramètres et tout semble correctement configuré.\n\nLe problème semble venir de votre côté.\n\nPouvez-vous investiguer ?\n\nMerci,\nLuc Moreau"
+    "message": "Bonjour,\n\nJe ne re\u00e7ois plus les notifications depuis quelques jours. J'ai v\u00e9rifi\u00e9 mes param\u00e8tres et tout semble correctement configur\u00e9.\n\nLe probl\u00e8me semble venir de votre c\u00f4t\u00e9.\n\nPouvez-vous investiguer ?\n\nMerci,\nLuc Moreau",
+    "telephone": "+33610000012"
   },
   {
     "date": "2026-02-09T13:18:47.012345",
-    "mail": "claire.rousseau@outlook.com",
-    "message": "Bonjour,\n\nLe dashboard affiche des données complètement erronées. Les statistiques ne correspondent pas du tout à la réalité et les graphiques sont incohérents.\n\nC'est assez problématique pour le suivi de mon activité.\n\nJe vous envoie des captures d'écran et une vidéo pour vous montrer les incohérences.\n\nCordialement,\nClaire Rousseau"
+    "message": "Bonjour,\n\nLe dashboard affiche des donn\u00e9es compl\u00e8tement erron\u00e9es. Les statistiques ne correspondent pas du tout \u00e0 la r\u00e9alit\u00e9 et les graphiques sont incoh\u00e9rents.\n\nC'est assez probl\u00e9matique pour le suivi de mon activit\u00e9.\n\nJe vous envoie des captures d'\u00e9cran et une vid\u00e9o pour vous montrer les incoh\u00e9rences.\n\nCordialement,\nClaire Rousseau",
+    "telephone": "+33610000013"
   },
   {
     "date": "2026-02-08T09:53:23.678901",
-    "mail": "thomas.dupont@free.fr",
-    "message": "Bonjour,\n\nImpossible de valider le formulaire à cause d'une erreur de validation sur le champ 'numéro de téléphone'.\n\nJ'ai pourtant saisi un numéro au bon format, mais le système me dit qu'il est invalide.\n\nPièce jointe : capture d'écran du message d'erreur.\n\nMerci de corriger ce bug.\n\nBien cordialement,\nThomas Dupont"
+    "message": "Bonjour,\n\nImpossible de valider le formulaire \u00e0 cause d'une erreur de validation sur le champ 'num\u00e9ro de t\u00e9l\u00e9phone'.\n\nJ'ai pourtant saisi un num\u00e9ro au bon format, mais le syst\u00e8me me dit qu'il est invalide.\n\nPi\u00e8ce jointe : capture d'\u00e9cran du message d'erreur.\n\nMerci de corriger ce bug.\n\nBien cordialement,\nThomas Dupont",
+    "telephone": "+33610000014"
   },
   {
     "date": "2026-02-07T15:29:59.234567",
-    "mail": "emma_martin@gmail.com",
-    "message": "Bonjour,\n\nLa fonction de recherche ne renvoie aucun résultat, même pour des éléments que je sais présents dans le système.\n\nJ'ai essayé différents mots-clés, sans succès.\n\nCela rend la navigation très difficile.\n\nMerci de regarder ce problème.\n\nEmma Martin"
+    "message": "Bonjour,\n\nLa fonction de recherche ne renvoie aucun r\u00e9sultat, m\u00eame pour des \u00e9l\u00e9ments que je sais pr\u00e9sents dans le syst\u00e8me.\n\nJ'ai essay\u00e9 diff\u00e9rents mots-cl\u00e9s, sans succ\u00e8s.\n\nCela rend la navigation tr\u00e8s difficile.\n\nMerci de regarder ce probl\u00e8me.\n\nEmma Martin",
+    "telephone": "+33610000015"
   },
   {
     "date": "2026-02-06T12:07:35.890123",
-    "mail": "jean.bernard@yahoo.fr",
-    "message": "Bonjour,\n\nJe vous signale un problème d'affichage majeur sur mobile. L'interface est complètement cassée, les éléments se chevauchent et certains boutons sont inaccessibles.\n\nVoir la vidéo en pièce jointe qui montre le problème en détail.\n\nJ'espère que cela sera corrigé rapidement.\n\nCordialement,\nJean Bernard"
+    "message": "Bonjour,\n\nJe vous signale un probl\u00e8me d'affichage majeur sur mobile. L'interface est compl\u00e8tement cass\u00e9e, les \u00e9l\u00e9ments se chevauchent et certains boutons sont inaccessibles.\n\nVoir la vid\u00e9o en pi\u00e8ce jointe qui montre le probl\u00e8me en d\u00e9tail.\n\nJ'esp\u00e8re que cela sera corrig\u00e9 rapidement.\n\nCordialement,\nJean Bernard",
+    "telephone": "+33610000016"
   },
   {
     "date": "2026-02-05T08:41:12.456789",
-    "mail": "marie_dubois@hotmail.fr",
-    "message": "Bonjour,\n\nJe ne peux pas soumettre le formulaire car le bouton submit reste grisé/désactivé, même après avoir rempli tous les champs obligatoires.\n\nJ'ai vérifié plusieurs fois, tout est bien complété.\n\nQue dois-je faire ?\n\nMerci,\nMarie Dubois"
+    "message": "Bonjour,\n\nJe ne peux pas soumettre le formulaire car le bouton submit reste gris\u00e9/d\u00e9sactiv\u00e9, m\u00eame apr\u00e8s avoir rempli tous les champs obligatoires.\n\nJ'ai v\u00e9rifi\u00e9 plusieurs fois, tout est bien compl\u00e9t\u00e9.\n\nQue dois-je faire ?\n\nMerci,\nMarie Dubois",
+    "telephone": "+33610000017"
   },
   {
     "date": "2026-02-04T17:15:48.012345",
-    "mail": "pierre.lambert@outlook.com",
-    "message": "URGENT - Perte de données\n\nBonjour,\n\nToutes mes données ont disparu après la mise à jour d'hier soir ! Mon tableau de bord est complètement vide.\n\nC'est extrêmement grave car je perds plusieurs mois de travail.\n\nMerci de restaurer mes données immédiatement.\n\nCapture d'écran en pièce jointe.\n\nPierre Lambert"
+    "message": "URGENT - Perte de donn\u00e9es\n\nBonjour,\n\nToutes mes donn\u00e9es ont disparu apr\u00e8s la mise \u00e0 jour d'hier soir ! Mon tableau de bord est compl\u00e8tement vide.\n\nC'est extr\u00eamement grave car je perds plusieurs mois de travail.\n\nMerci de restaurer mes donn\u00e9es imm\u00e9diatement.\n\nCapture d'\u00e9cran en pi\u00e8ce jointe.\n\nPierre Lambert",
+    "telephone": "+33610000018"
   },
   {
     "date": "2026-02-03T14:52:24.678901",
-    "mail": "sophie_moreau@free.fr",
-    "message": "Bonjour,\n\nL'application plante systématiquement quand j'essaie d'ouvrir la section 'Historique'. Je reçois un message d'erreur et l'app se ferme.\n\nJ'ai désinstallé et réinstallé l'application, le problème est toujours là.\n\nVous trouverez en pièces jointes une capture de l'erreur et une vidéo montrant le crash.\n\nMerci de votre aide,\nSophie Moreau"
+    "message": "Bonjour,\n\nL'application plante syst\u00e9matiquement quand j'essaie d'ouvrir la section 'Historique'. Je re\u00e7ois un message d'erreur et l'app se ferme.\n\nJ'ai d\u00e9sinstall\u00e9 et r\u00e9install\u00e9 l'application, le probl\u00e8me est toujours l\u00e0.\n\nVous trouverez en pi\u00e8ces jointes une capture de l'erreur et une vid\u00e9o montrant le crash.\n\nMerci de votre aide,\nSophie Moreau",
+    "telephone": "+33610000019"
   }
 ]
