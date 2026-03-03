@@ -9,8 +9,12 @@ CREATE TABLE IF NOT EXISTS labeled_tickets (
     "receivedAt" DOUBLE PRECISION,
     "body" TEXT,
     "category" VARCHAR(255),
-    "priority" VARCHAR(255)
+    "priority" VARCHAR(255),
+    "commonId" BIGINT
 );
+
+ALTER TABLE labeled_tickets
+    ADD COLUMN IF NOT EXISTS "commonId" BIGINT;
 
 CREATE TABLE IF NOT EXISTS ticket_comments (
     id UUID PRIMARY KEY,
