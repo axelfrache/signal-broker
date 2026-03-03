@@ -4,7 +4,7 @@ The core API and event streaming processing engine for the Signal Broker platfor
 
 ## Architecture
 
-This service is built with **Java 21** and **Spring Boot 3**. It heavily relies on an Event-Driven Architecture, leveraging **Apache Kafka** as the central message broker to process support tickets asynchronously.
+This service is built with **Java 21** and **Spring Boot 4**. It heavily relies on an Event-Driven Architecture, leveraging **Apache Kafka** as the central message broker to process support tickets asynchronously.
 
 ### Key Components
 
@@ -18,7 +18,7 @@ This service is built with **Java 21** and **Spring Boot 3**. It heavily relies 
 
 ## Tech Stack
 
-- **Framework**: Spring Boot 3
+- **Framework**: Spring Boot 4
 - **Language**: Java 21
 - **Event Streaming**: Spring Kafka
 - **Database**: PostgreSQL with Spring Data JPA
