@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.random.RandomGenerator;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
 @Component
@@ -28,7 +28,7 @@ public class SimulatorRunner implements CommandLineRunner {
 
         log.info("Starting simulator. Generating {} messages with {} ms delay...", simulatorProperties.count(),
                 simulatorProperties.rateMs());
-        var random = RandomGenerator.getDefault();
+        var random = ThreadLocalRandom.current();
 
         for (var i = 0; i < simulatorProperties.count(); i++) {
             var source = messageSources.get(random.nextInt(messageSources.size()));
