@@ -1,14 +1,14 @@
 package com.axelfrache.signalbroker.service.simulator;
 
+import com.axelfrache.signalbroker.config.properties.SimulatorProperties;
 import com.axelfrache.signalbroker.service.EventPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Random;
+import java.util.random.RandomGenerator;
 
 @Slf4j
 @Component
@@ -17,27 +17,20 @@ public class SimulatorRunner implements CommandLineRunner {
 
     private final List<MessageSource> messageSources;
     private final EventPublisher eventPublisher;
-
-    @Value("${simulator.enabled:false}")
-    private boolean enabled;
-
-    @Value("${simulator.count:50}")
-    private int count;
-
-    @Value("${simulator.rateMs:200}")
-    private long rateMs;
+    private final SimulatorProperties simulatorProperties;
 
     @Override
     public void run(String... args) throws Exception {
-        if (!enabled || messageSources.isEmpty()) {
+        if (!simulatorProperties.enabled() || messageSources.isEmpty()) {
             log.info("Simulator is disabled or no sources available.");
             return;
         }
 
-        log.info("Starting simulator. Generating {} messages with {} ms delay...", count, rateMs);
-        var random = new Random();
+        log.info("Starting simulator. Generating {} messages with {} ms delay...", simulatorProperties.count(),
+                simulatorProperties.rateMs());
+        var random = RandomGenerator.getDefault();
 
-        for (var i = 0; i < count; i++) {
+        for (var i = 0; i < simulatorProperties.count(); i++) {
             var source = messageSources.get(random.nextInt(messageSources.size()));
             var event = source.next();
 
@@ -46,11 +39,11 @@ public class SimulatorRunner implements CommandLineRunner {
                 case MAIL -> eventPublisher.publishMailRaw(event);
             }
 
-            if (rateMs > 0) {
-                Thread.sleep(rateMs);
+            if (simulatorProperties.rateMs() > 0) {
+                Thread.sleep(simulatorProperties.rateMs());
             }
         }
 
-        log.info("Simulator finished emitting {} messages.", count);
+        log.info("Simulator finished emitting {} messages.", simulatorProperties.count());
     }
 }

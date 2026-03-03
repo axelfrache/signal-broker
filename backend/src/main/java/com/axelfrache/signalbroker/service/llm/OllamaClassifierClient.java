@@ -1,5 +1,6 @@
 package com.axelfrache.signalbroker.service.llm;
 
+import com.axelfrache.signalbroker.config.properties.OllamaProperties;
 import com.axelfrache.signalbroker.dto.ClassificationResult;
 import com.axelfrache.signalbroker.exception.OllamaClientException;
 import com.axelfrache.signalbroker.model.enums.Category;
@@ -7,22 +8,23 @@ import com.axelfrache.signalbroker.model.enums.Priority;
 import com.axelfrache.signalbroker.model.enums.TicketType;
 import com.axelfrache.signalbroker.model.kafka.FormattedTicketEvent;
 import com.axelfrache.signalbroker.service.ClassifierClient;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.Map;
+import java.util.Locale;
 
 @Component
+@RequiredArgsConstructor
 public class OllamaClassifierClient implements ClassifierClient {
 
     private final WebClient webClient;
-    private final String model;
+    private final OllamaProperties ollamaProperties;
     private final ObjectMapper mapper;
 
     private static final Map<String, Category> CATEGORY_ALIASES = Map.ofEntries(
@@ -62,21 +64,13 @@ public class OllamaClassifierClient implements ClassifierClient {
             "LOW", Priority.P3
     );
 
-    public OllamaClassifierClient(
-            @org.springframework.beans.factory.annotation.Qualifier("ollamaWebClient") WebClient webClient,
-            @Value("${ollama.model.classifier:qwen2.5:3b-instruct}") String model) {
-        this.webClient = webClient;
-        this.model = model;
-        this.mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    }
-
     @Override
     public ClassificationResult classify(@lombok.NonNull FormattedTicketEvent formatted) throws OllamaClientException {
         var prompt = buildPrompt(formatted);
 
         try {
             var request = Map.of(
-                    "model", model,
+                    "model", ollamaProperties.model().classifier(),
                     "prompt", prompt,
                     "stream", false,
                     "format", "json");
@@ -115,9 +109,9 @@ public class OllamaClassifierClient implements ClassifierClient {
             var subject = getTextOrDefault(node, "subject", "No subject");
             var confidence = node.has("confidence") ? node.get("confidence").asDouble(0.5) : 0.5;
 
-            var category = CATEGORY_ALIASES.getOrDefault(rawCategory.toUpperCase(), Category.BACKEND);
-            var ticketType = TICKET_TYPE_ALIASES.getOrDefault(rawTicketType.toUpperCase(), TicketType.OTHER);
-            var priority = PRIORITY_ALIASES.getOrDefault(rawPriority.toUpperCase(), Priority.P2);
+            var category = CATEGORY_ALIASES.getOrDefault(rawCategory.toUpperCase(Locale.ROOT), Category.BACKEND);
+            var ticketType = TICKET_TYPE_ALIASES.getOrDefault(rawTicketType.toUpperCase(Locale.ROOT), TicketType.OTHER);
+            var priority = PRIORITY_ALIASES.getOrDefault(rawPriority.toUpperCase(Locale.ROOT), Priority.P2);
 
             return new ClassificationResult(subject, category, ticketType, priority, confidence);
 
