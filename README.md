@@ -1,7 +1,7 @@
 # Signal Broker
 
 [![Java](https://img.shields.io/badge/Java-21-ED8B00?logo=openjdk&logoColor=white)](https://openjdk.org/)
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-6DB33F?logo=spring-boot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.x-6DB33F?logo=spring-boot&logoColor=white)](https://spring.io/projects/spring-boot)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
@@ -12,6 +12,7 @@
 Signal Broker is a comprehensive support ticket management system designed for technical support teams.
 
 It offers a complete solution for real-time management, tracking, and analysis of support requests. It utilizes AI for automatic ticket classification and provides a robust dashboard for monitoring KPIs in real-time.
+For local testing, the recommended input source is the built-in Spring simulator (mail + WhatsApp examples), controlled through `.env`.
 
 ### Core Principles
 
@@ -34,6 +35,21 @@ The application is divided into 2 main parts: **backend** and **frontend**.
 - Java 21
 - Node.js 20+
 - Docker & Docker Compose
+- Ollama running locally (for AI labeling), with a model such as `qwen2.5:3b-instruct`
+
+### Environment
+
+Create your local environment file from the template:
+
+```bash
+cp .env.example .env
+```
+
+To run end-to-end tests with generated tickets, enable the simulator in `.env`:
+
+```bash
+SIMULATOR_ENABLED=true
+```
 
 ## Running
 
@@ -67,6 +83,20 @@ Then go to:
 - Backend API: http://localhost:8080
 - Kafbat UI (Kafka Management): http://localhost:8082
 
+### Recommended Local Test Flow (Simulator)
+
+1. Set `SIMULATOR_ENABLED=true` in `.env`.
+2. Start the stack with `docker compose up -d --build`.
+3. Follow backend logs to confirm message generation:
+```bash
+docker compose logs -f backend
+```
+4. Open the dashboard and Kafbat UI to observe ticket ingestion, formatting, labeling, and persistence.
+
+The simulator publishes realistic examples from:
+- `backend/src/main/resources/simulator/mail.json`
+- `backend/src/main/resources/simulator/whatsapp.json`
+
 To stop the application:
 ```bash
 docker compose down
@@ -78,7 +108,7 @@ Use `-v` if you want to remove volumes too.
 
 For code quality, we use:
 - **Backend**: Spotless with Google Java Format
-- **Frontend**: ESLint and Prettier
+- **Frontend**: ESLint
 
 ### Commands
 
@@ -93,12 +123,10 @@ cd backend
 ```bash
 cd frontend
 npm run lint          # Check linting
-npm run format:check  # Check formatting
-npm run format        # Fix formatting
 ```
 
 > **Warning**: Those are mandatory before pushing code, if it is not done the CI will fail.
 
 ## Repository
 
-Notre repo GitHub : https://github.com/axelfrache/signal-broker
+GitHub repository: https://github.com/axelfrache/signal-broker

@@ -42,6 +42,26 @@ To run the Spring Boot application locally:
 
 Ensure that the infrastructure services (Kafka, DB, Ollama, etc.) are running and properly configured in your `application.properties` or environment variables.
 
+### Recommended Ticket Input for Local Tests
+
+Use the built-in simulator.
+
+With Docker Compose from the project root:
+
+1. Set `SIMULATOR_ENABLED=true` in `.env`.
+2. Start the stack:
+```bash
+docker compose up -d --build
+```
+3. Inspect backend logs:
+```bash
+docker compose logs -f backend
+```
+
+The simulator emits mail and WhatsApp events from JSON examples in:
+- `src/main/resources/simulator/mail.json`
+- `src/main/resources/simulator/whatsapp.json`
+
 ### Build & Test
 
 To compile the application:
