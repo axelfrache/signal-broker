@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -24,7 +23,7 @@ public class TicketCommentService {
         return repository.findByTicketIdOrderByCreatedAtAsc(ticketId)
                 .stream()
                 .map(this::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public TicketCommentDto addComment(UUID ticketId, CreateTicketCommentRequest req) {

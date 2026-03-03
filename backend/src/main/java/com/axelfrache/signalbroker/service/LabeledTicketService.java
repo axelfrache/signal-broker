@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,20 +28,20 @@ public class LabeledTicketService {
 
         var validPriorities = priorities != null && !priorities.isEmpty() ? priorities : null;
         var validCategories = categories != null && !categories.isEmpty() ? categories : null;
-        var qPattern = q != null && !q.trim().isEmpty() ? "%" + q + "%" : null;
+        var qPattern = q != null && !q.isBlank() ? "%" + q.trim().toLowerCase() + "%" : "%";
 
-        var ticketPage = repository.findWithFilters(validPriorities, validCategories, q, qPattern,
+        var ticketPage = repository.findWithFilters(validPriorities, validCategories, qPattern,
                 fromTime, toTime, pageable);
 
-        var items = ticketPage.getContent().stream().map(this::toDto).collect(Collectors.toList());
+        var items = ticketPage.getContent().stream().map(this::toDto).toList();
         var pageInfo = new PaginatedResponse.PageInfo(page, size, ticketPage.getTotalElements(),
                 ticketPage.getTotalPages());
 
         return new PaginatedResponse<>(items, pageInfo);
     }
 
-    public TicketDetailsDto getTicketById(String ticketId) {
-        return repository.findById(ticketId).map(this::toDetailsDto).orElse(null);
+    public Optional<TicketDetailsDto> getTicketById(String ticketId) {
+        return repository.findById(ticketId).map(this::toDetailsDto);
     }
 
     public StatsOverviewDto getStats(Double fromTime, Double toTime) {
@@ -93,46 +93,42 @@ public class LabeledTicketService {
             currentBucket += bucketSize;
         }
 
-        var stats = new StatsOverviewDto();
-        stats.setTotalTickets(totalCount);
-        stats.setByPriority(byPriority);
-        stats.setByCategory(byCategory);
-        stats.setAvgConfidence(avgConfidence != null ? avgConfidence : 0.0);
-        stats.setLast24hCount(last24hCount);
-        stats.setSeries(series);
-
-        return stats;
+        return new StatsOverviewDto(
+                totalCount,
+                byPriority,
+                byCategory,
+                avgConfidence != null ? avgConfidence : 0.0,
+                last24hCount,
+                series);
     }
 
     private TicketDto toDto(LabeledTicketEntity entity) {
-        var dto = new TicketDto();
-        dto.setTicketId(entity.getTicketId());
-        dto.setSubject(entity.getSubject());
-        dto.setContact(entity.getContact());
-        dto.setConfidence(entity.getConfidence());
-        dto.setReceivedAt(entity.getReceivedAt());
-        dto.setLabeledAt(entity.getLabeledAt());
-        dto.setCategory(entity.getCategory());
-        dto.setPriority(entity.getPriority());
-        dto.setTicketType(entity.getTicketType());
-        dto.setCommonId(entity.getCommonId());
-        return dto;
+        return new TicketDto(
+                entity.getTicketId(),
+                entity.getSubject(),
+                entity.getContact(),
+                entity.getConfidence(),
+                entity.getReceivedAt(),
+                entity.getLabeledAt(),
+                entity.getCategory(),
+                entity.getPriority(),
+                entity.getTicketType(),
+                entity.getCommonId());
     }
 
     private TicketDetailsDto toDetailsDto(LabeledTicketEntity entity) {
-        var dto = new TicketDetailsDto();
-        dto.setTicketId(entity.getTicketId());
-        dto.setSubject(entity.getSubject());
-        dto.setContact(entity.getContact());
-        dto.setConfidence(entity.getConfidence());
-        dto.setReceivedAt(entity.getReceivedAt());
-        dto.setLabeledAt(entity.getLabeledAt());
-        dto.setCategory(entity.getCategory());
-        dto.setPriority(entity.getPriority());
-        dto.setTicketType(entity.getTicketType());
-        dto.setCommonId(entity.getCommonId());
-        dto.setBody(entity.getBody());
-        dto.setSchemaVersion(entity.getSchemaVersion());
-        return dto;
+        return new TicketDetailsDto(
+                entity.getTicketId(),
+                entity.getSubject(),
+                entity.getContact(),
+                entity.getConfidence(),
+                entity.getReceivedAt(),
+                entity.getLabeledAt(),
+                entity.getCategory(),
+                entity.getPriority(),
+                entity.getTicketType(),
+                entity.getCommonId(),
+                entity.getBody(),
+                entity.getSchemaVersion());
     }
 }

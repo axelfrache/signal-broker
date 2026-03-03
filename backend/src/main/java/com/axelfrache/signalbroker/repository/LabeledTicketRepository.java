@@ -14,15 +14,14 @@ public interface LabeledTicketRepository extends JpaRepository<LabeledTicketEnti
         @Query("SELECT t FROM LabeledTicketEntity t " +
                         "WHERE (:priorities IS NULL OR t.priority IN :priorities) " +
                         "AND (:categories IS NULL OR t.category IN :categories) " +
-                        "AND (:q IS NULL OR LOWER(t.subject) LIKE LOWER(:qPattern) " +
-                        "     OR LOWER(t.body) LIKE LOWER(:qPattern) " +
-                        "     OR LOWER(t.contact) LIKE LOWER(:qPattern)) " +
+                        "AND (LOWER(COALESCE(t.subject, '')) LIKE :qPattern " +
+                        "     OR LOWER(COALESCE(t.body, '')) LIKE :qPattern " +
+                        "     OR LOWER(COALESCE(t.contact, '')) LIKE :qPattern) " +
                         "AND (:fromTime IS NULL OR t.receivedAt >= :fromTime) " +
                         "AND (:toTime IS NULL OR t.receivedAt <= :toTime)")
         Page<LabeledTicketEntity> findWithFilters(
                         @Param("priorities") List<String> priorities,
                         @Param("categories") List<String> categories,
-                        @Param("q") String q,
                         @Param("qPattern") String qPattern,
                         @Param("fromTime") Double fromTime,
                         @Param("toTime") Double toTime,
