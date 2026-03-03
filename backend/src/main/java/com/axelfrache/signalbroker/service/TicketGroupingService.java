@@ -1,58 +1,50 @@
 package com.axelfrache.signalbroker.service;
 
+import com.axelfrache.signalbroker.config.properties.OllamaProperties;
 import com.axelfrache.signalbroker.model.kafka.LabeledTicketEvent;
-import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class TicketGroupingService {
 
     private final WebClient ollamaWebClient;
-    private final String model;
-    private final List<TicketGroup> ticketGroups = new ArrayList<>();
+    private final OllamaProperties ollamaProperties;
+    private final ConcurrentLinkedDeque<TicketGroup> ticketGroups = new ConcurrentLinkedDeque<>();
     private final AtomicLong nextCommonId = new AtomicLong(1);
 
     private static final int MAX_GROUPS = 100;
 
-    public TicketGroupingService(
-            @Qualifier("ollamaWebClient") WebClient ollamaWebClient,
-            @Value("${ollama.model.classifier:qwen2.5:3b-instruct}") String model) {
-        this.ollamaWebClient = ollamaWebClient;
-        this.model = model;
-    }
-
     public Long assignCommonId(LabeledTicketEvent ticket) {
-        synchronized (ticketGroups) {
-            for (var group : ticketGroups) {
-                if (areSimilar(ticket, group.getRepresentative())) {
-                    log.info("Ticket {} groupé avec commonId {}", ticket.ticketId(), group.getCommonId());
-                    group.addTicket(ticket);
-                    return group.getCommonId();
-                }
+        for (var group : ticketGroups) {
+            if (areSimilar(ticket, group.representative())) {
+                log.info("Ticket {} groupé avec commonId {}", ticket.ticketId(), group.commonId());
+                group.addTicket(ticket);
+                return group.commonId();
             }
-
-            var newCommonId = nextCommonId.getAndIncrement();
-            var newGroup = new TicketGroup(newCommonId, ticket);
-            ticketGroups.add(newGroup);
-
-            if (ticketGroups.size() > MAX_GROUPS) {
-                ticketGroups.removeFirst();
-            }
-
-            log.info("Nouveau groupe créé avec commonId {} pour ticket {}", newCommonId, ticket.ticketId());
-            return newCommonId;
         }
+
+        var newCommonId = nextCommonId.getAndIncrement();
+        var newGroup = new TicketGroup(newCommonId, ticket);
+        ticketGroups.addLast(newGroup);
+
+        while (ticketGroups.size() > MAX_GROUPS) {
+            ticketGroups.pollFirst();
+        }
+
+        log.info("Nouveau groupe créé avec commonId {} pour ticket {}", newCommonId, ticket.ticketId());
+        return newCommonId;
     }
 
     private boolean areSimilar(LabeledTicketEvent ticket1, LabeledTicketEvent ticket2) {
@@ -60,7 +52,7 @@ public class TicketGroupingService {
             var prompt = buildSimilarityPrompt(ticket1, ticket2);
 
             var request = Map.of(
-                    "model", model,
+                    "model", ollamaProperties.model().classifier(),
                     "prompt", prompt,
                     "stream", false);
 
@@ -126,21 +118,13 @@ public class TicketGroupingService {
                 ticket2.subject(), ticket2.body(), ticket2.category(), ticket2.priority());
     }
 
-    @Getter
-    private static class TicketGroup {
-        private final Long commonId;
-        private final LabeledTicketEvent representative;
-        private final List<LabeledTicketEvent> tickets;
-
-        public TicketGroup(Long commonId, LabeledTicketEvent representative) {
-            this.commonId = commonId;
-            this.representative = representative;
-            this.tickets = new ArrayList<>();
-            this.tickets.add(representative);
+    private record TicketGroup(Long commonId, LabeledTicketEvent representative, List<LabeledTicketEvent> tickets) {
+        private TicketGroup(Long commonId, LabeledTicketEvent representative) {
+            this(commonId, representative, new CopyOnWriteArrayList<>(List.of(representative)));
         }
 
-        public void addTicket(LabeledTicketEvent ticket) {
-            tickets.add(ticket);
+        private void addTicket(LabeledTicketEvent ticket) {
+            this.tickets.add(ticket);
         }
     }
 }
