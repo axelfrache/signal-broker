@@ -1,15 +1,16 @@
 package com.axelfrache.signalbroker.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class TicketDetailsDto extends TicketDto {
-    private String body;
-    private Long schemaVersion;
+public record TicketDetailsDto(
+        String ticketId,
+        String subject,
+        String contact,
+        Double confidence,
+        Double receivedAt,
+        Double labeledAt,
+        String category,
+        String priority,
+        String ticketType,
+        Long commonId,
+        String body,
+        Long schemaVersion) {
 }
