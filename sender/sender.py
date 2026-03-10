@@ -26,7 +26,6 @@ def create_producer():
             retries=3,
         )
     except Exception as e:
-        print(f"Erreur de connexion à Kafka: {e}")
         raise
 
 
@@ -49,8 +48,6 @@ def send_mail_messages(producer, mail_file="mail.json"):
     with open(mail_file, "r", encoding="utf-8") as f:
         messages = json.load(f)
 
-    print(f"Envoi de {len(messages)} emails vers '{MAIL_TOPIC}'...")
-
     for i, msg in enumerate(messages, 1):
         event = to_raw_event(
             source_type="MAIL",
@@ -62,17 +59,14 @@ def send_mail_messages(producer, mail_file="mail.json"):
         try:
             future = producer.send(MAIL_TOPIC, value=event)
             record_metadata = future.get(timeout=10)
-            print(f"  [{i}/{len(messages)}] Email envoyé (offset: {record_metadata.offset})")
             time.sleep(0.5)
         except KafkaError as e:
-            print(f"Erreur email {i}: {e}")
+            pass
 
 
 def send_whatsapp_messages(producer, whatsapp_file="whatsapp.json"):
     with open(whatsapp_file, "r", encoding="utf-8") as f:
         messages = json.load(f)
-
-    print(f"\nEnvoi de {len(messages)} messages WhatsApp vers '{WHATSAPP_TOPIC}'...")
 
     for i, msg in enumerate(messages, 1):
         event = to_raw_event(
@@ -85,27 +79,73 @@ def send_whatsapp_messages(producer, whatsapp_file="whatsapp.json"):
         try:
             future = producer.send(WHATSAPP_TOPIC, value=event)
             record_metadata = future.get(timeout=10)
-            print(f"  [{i}/{len(messages)}] WhatsApp envoyé (offset: {record_metadata.offset})")
             time.sleep(0.5)
         except KafkaError as e:
-            print(f"Erreur WhatsApp {i}: {e}")
+            pass
+
+
+def send_malformed_messages(producer):
+    try:
+        with open("mail_malformed.json", "r", encoding="utf-8") as f:
+            mail_messages = json.load(f)
+        
+        for i, msg in enumerate(mail_messages, 1):
+            event = to_raw_event(
+                source_type="MAIL",
+                source_msg_id=f"malformed-mail-{i}-{uuid.uuid4().hex[:8]}",
+                contact=msg["mail"],
+                body=msg["message"],
+                original_date=msg["date"],
+            )
+            try:
+                future = producer.send(MAIL_TOPIC, value=event)
+                record_metadata = future.get(timeout=10)
+                time.sleep(0.5)
+            except KafkaError as e:
+                pass
+    except FileNotFoundError:
+        pass
+    
+    try:
+        with open("whatsapp_malformed.json", "r", encoding="utf-8") as f:
+            wa_messages = json.load(f)
+        
+        for i, msg in enumerate(wa_messages, 1):
+            event = to_raw_event(
+                source_type="WHATSAPP",
+                source_msg_id=f"malformed-wa-{i}-{uuid.uuid4().hex[:8]}",
+                contact=str(msg["telephone"]),
+                body=msg["message"],
+                original_date=msg["date"],
+            )
+            try:
+                future = producer.send(WHATSAPP_TOPIC, value=event)
+                record_metadata = future.get(timeout=10)
+                time.sleep(0.5)
+            except KafkaError as e:
+                pass
+    except FileNotFoundError:
+        pass
 
 
 def main():
-    print(f"Kafka Sender - {KAFKA_BOOTSTRAP_SERVERS[0]}")
-    print(f"  Mail topic:     {MAIL_TOPIC}")
-    print(f"  WhatsApp topic: {WHATSAPP_TOPIC}")
+    import sys
+    
+    send_malformed = "--malformed" in sys.argv or "-m" in sys.argv
 
     try:
         producer = create_producer()
-        send_mail_messages(producer)
-        send_whatsapp_messages(producer)
+        
+        if send_malformed:
+            send_malformed_messages(producer)
+        else:
+            send_mail_messages(producer)
+            send_whatsapp_messages(producer)
 
         producer.flush()
-        print("\n✓ Terminé")
 
     except Exception as e:
-        print(f"\nErreur: {e}")
+        pass
     finally:
         if "producer" in locals():
             producer.close()

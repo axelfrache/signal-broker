@@ -1,0 +1,37 @@
+[
+  {
+    "date": "2026-02-22T18:23:45.123456",
+    "mail": "bad.user1@gmail.com",
+    "message": ""
+  },
+  {
+    "date": "2026-02-21T14:52:31.789012",
+    "mail": "bad.user2@yahoo.fr",
+    "message": "   "
+  },
+  {
+    "date": "2026-02-20T10:38:17.345678",
+    "mail": "",
+    "message": "Ceci est un message avec un contact vide, il devrait échouer!"
+  },
+  {
+    "date": "2026-02-19T16:14:52.901234",
+    "mail": "   ",
+    "message": "Encore un contact vide mais avec des espaces seulement"
+  },
+  {
+    "date": "2026-02-18T12:47:28.567890",
+    "mail": "",
+    "message": ""
+  },
+  {
+    "date": "2026-02-17T09:25:13.234567",
+    "mail": "valid.mail@example.com",
+    "message": "\n\n\n"
+  },
+  {
+    "date": "2026-02-16T15:58:39.890123",
+    "mail": "another.bad@test.com",
+    "message": "\t\t  \n  "
+  }
+]
